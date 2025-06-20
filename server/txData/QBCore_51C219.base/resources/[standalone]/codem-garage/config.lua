@@ -41,7 +41,7 @@ Config.PlateNumbers  = 4 -- plate numbers
 Config.PlateUseSpace = false -- use space in plate
 Config.MileageFormat = "KM" -- "KM" "MI"
 Config.EnableFuel = false -- Do NOT Touch if you have any fuel system
-Config.FuelSystem = 'cdn-fuel' -- LegacyFuel / x-fuel / ox-fuel / nd-fuel / frfuel / cdn-fuel / hyon_gas_stationConfig.DefaultSellPrice = 10000 -- default price for vehicles that are not in the database
+Config.FuelSystem = 'x-fuel' -- LegacyFuel / x-fuel / ox-fuel / nd-fuel / frfuel / cdn-fuel / hyon_gas_stationConfig.DefaultSellPrice = 10000 -- default price for vehicles that are not in the database
 Config.Vehiclekey = true -- Do NOT Touch if you have any car lock system
 Config.VehicleKeySystem = "qb-vehiclekeys" -- cd_garage / qs-vehiclekeys / wasabi-carlock / qb-vehiclekeys
 Config.VehicleRemovekey = true -- Do NOT Touch if you have any car lock system

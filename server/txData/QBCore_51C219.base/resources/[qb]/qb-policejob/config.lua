@@ -6,7 +6,7 @@ Config.LicenseRank = 2
 Config.ArmoryWhitelist = {}
 Config.WhitelistedVehicles = {}
 Config.PoliceHelicopter = 'POLMAV'
-Config.FuelResource = 'cdn-fuel' -- supports any that has a GetFuel() and SetFuel() export
+Config.FuelResource = 'x-fuel' -- supports any that has a GetFuel() and SetFuel() export
 
 Config.AmmoLabels = {
     AMMO_PISTOL = '9x19mm parabellum bullet',

@@ -1309,7 +1309,7 @@ Config.Missions = {
 }
 
 
-Config.FuelSystem = "cdn-fuel"                                -- LegacyFuel / x-fuel
+Config.FuelSystem = "x-fuel"                                -- LegacyFuel / x-fuel
 
 Config.SetVehicleFuel = function(vehicle, fuel_level) -- you can change LegacyFuel export if you use another fuel system
   if Config.FuelSystem == 'cdn-fuel' then
