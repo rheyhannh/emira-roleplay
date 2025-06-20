@@ -20,4 +20,3 @@ jobs:
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./server/
           server-dir: ./server/
-          state-name: ./server/.ftp-deploy-state.json
