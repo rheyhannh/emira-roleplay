@@ -20,3 +20,15 @@ jobs:
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./server/
           server-dir: ./server/
+
+  rcon:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔂 Restarting server
+        uses: Plagiatus/RCON-Action@v0.2
+        with:
+          server: ${{ secrets.FIVEM_RCON_HOST }}
+          port: ${{ secrets.FIVEM_RCON_PORT }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          commands: '["restart"]'
