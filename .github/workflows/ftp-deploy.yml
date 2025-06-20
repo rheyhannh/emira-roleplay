@@ -6,7 +6,7 @@ on:
 
 jobs:
   ftp-deploy:
-    name: 🎉 Deploy
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
@@ -21,3 +21,4 @@ jobs:
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./server/
           server-dir: ./server/
+          dry-run: true
