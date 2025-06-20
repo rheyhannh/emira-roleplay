@@ -1,3 +1,4 @@
+-- test
 function GetCore()
     local object = nil
     local Framework = Config.Framework
