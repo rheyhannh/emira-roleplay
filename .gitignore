@@ -1,9 +1,18 @@
-# depedencies
+# depedencies | bundlers | build tools | package managers
 node_modules/
+builders/
+[builders]/
 
-# cached
-/server/txData/QBCore_51C219.base/cache/
-
-# log
-.replxx_history
+# cached | logs
+/server/txData/default/data
+/server/txData/default/logs
 /server/txData/QBCore_51C219.base/db/
+/server/txData/QBCore_51C219.base/cache/
+/server/txData/QBCore_51C219.base/.replxx_history
+
+# config files | settings
+/server/txData/default/config.json
+
+# sensitive data
+/server/txData/admins.json
+/server/txData/QBCore_51C219.base/server.cfg
