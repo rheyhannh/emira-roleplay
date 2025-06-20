@@ -1,3 +1,6 @@
+# vsc files
+*.code-workspace
+
 # depedencies | bundlers | build tools | package managers
 node_modules/
 builders/
