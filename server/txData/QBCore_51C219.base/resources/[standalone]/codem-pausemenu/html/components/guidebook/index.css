@@ -1,0 +1,1056 @@
+.guidebook {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.guidebookwrapper {
+    position: relative;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    column-gap: 2rem;
+}
+
+.guidebookleft {
+    width: 23.875rem;
+    height: 50.8125rem;
+    border-radius: 0.625rem;
+    background: #1C1B26;
+    padding: 1.5rem;
+    position: relative;
+}
+
+.createcommand-modal-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 100001 !important;
+}
+
+.createcommand-modal {
+    z-index: 100002 !important;
+    width: 27.97rem;
+    padding: 1rem;
+    position: absolute;
+    left: 50%;
+    background: #696969;
+    border-radius: 1.6875rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.createcommand-modal-command-container {
+    position: relative;
+    width: 100%;
+    height: 3rem;
+    border-radius: 0.8125rem;
+    background: rgba(0, 0, 0, 0.18);
+    padding-left: 2.35rem;
+    padding-right: .5rem;
+}
+
+.createcommand-modal-command-container img {
+    position: absolute;
+    left: .5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: 1.125rem;
+    opacity: 0.75;
+
+}
+
+.createcommand-modal>textarea {
+    width: 100%;
+    height: 5rem;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    appearance: none;
+    padding: .65rem;
+    border-radius: 0.8125rem;
+    background: rgba(0, 0, 0, 0.18);
+    color: #000;
+    resize: none;
+    font-family: "SF Pro Text";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.createcommand-modal>textarea::placeholder {
+    font-family: "SF Pro Text";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    opacity: 0.75;
+    color: #000;
+}
+
+
+.createcommand-modal-command-container input {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    appearance: none;
+    font-family: "SF Pro Text";
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.075rem;
+    color: #000;
+
+}
+
+.createcommand-modal-command-container input::placeholder {
+    opacity: 0.75;
+    font-family: "SF Pro Text";
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.075rem;
+    color: #000;
+}
+
+.createkeybindbuttoncontainer{
+    position: absolute;
+    top: 2rem;
+    right: 1.8rem;
+    display: flex;
+    align-items: center;
+    column-gap:.75rem;
+}
+
+.deletekeybindbutton{
+    padding: 0 .65rem;
+    height: 2.125rem;
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.6875rem;
+    background: #F18C8C;
+    color: #000;
+    cursor: pointer;
+    font-family: Gilroy-SemiBold;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 99.5%;
+    transition: all .2s ease;
+    z-index: 33333;
+}
+
+.createkeybindbutton {
+    padding: 0 .65rem;
+    height: 2.125rem;
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.6875rem;
+    background: #FFF;
+    color: #000;
+    cursor: pointer;
+    font-family: Gilroy-SemiBold;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 99.5%;
+    transition: all .2s ease;
+    z-index: 33333;
+}
+
+.createkeybindbutton:hover {
+    opacity: 0.9;
+}
+
+.guidebookdiscord {
+    width: 85%;
+    height: 8.75rem;
+    transform: translateX(-50%);
+
+    padding: 1rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    left: 50%;
+    bottom: 1.5rem;
+    transition: box-shadow 0.5s;
+}
+
+.guidebookdiscordheader {
+    display: flex;
+    flex-direction: column;
+    row-gap: .75rem;
+}
+
+.guidebookdiscordlink {
+    position: absolute;
+    left: 0;
+    bottom: 0rem;
+    cursor: pointer;
+    font-family: Gilroy-SemiBold;
+    font-size: 0.875rem;
+
+}
+
+.guidebookdiscordheader h1 {
+    color: #FFF;
+    font-size: 1rem;
+    font-family: Gilroy-ExtraBold;
+
+}
+
+.guidebookdiscordheader p {
+    color: #FFF;
+
+    font-family: Gilroy-Bold;
+    font-size: 0.875rem;
+
+}
+
+
+
+.guidebookdiscordwrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.guidebookheadercontainer {
+    display: flex;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.guidebookheadercontainer img {
+    cursor: pointer;
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: cover;
+}
+
+.guidebookheader {
+    color: #FFF;
+    font-family: Gilroy-SemiBold;
+}
+
+.guidebookcategoryactive {
+    position: absolute;
+    left: -1.5rem;
+    height: 100%;
+    top: 0;
+    border-radius: 0rem 0.75rem 0.75rem 0rem;
+    width: 0.3125rem;
+    animation: opacity-anim .2s linear;
+}
+
+.guidebookitemcontainer {
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+    width: 100%;
+    height: 3rem;
+    margin-bottom: .75rem;
+
+}
+
+
+.guidebookitem {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    background: rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    cursor: pointer;
+    transition: all .2s ease;
+    position: relative;
+}
+
+.deleteGuidebook {
+    width: 3.5rem;
+    height: 100%;
+    border-radius: 0.5rem;
+    background: #15141D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.deleteGuidebook img {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: cover;
+}
+
+.createNewGuideButton {
+    height: 3rem;
+    border-radius: 0.5rem;
+    background: #5D567B;
+    box-shadow: 0px 4px 18.5px 0px rgba(0, 0, 0, 0.50), 0px 1px 0px 0px rgba(255, 255, 255, 0.43) inset;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1rem;
+    width: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    cursor: pointer;
+
+}
+
+.createNewGuideContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+}
+
+.createNewGuideHeader {
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+    padding: 1.5rem;
+
+}
+
+.createNewGuideHeader img {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: cover;
+}
+
+.createNewGuideHeader input {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    width: 90%;
+    font-family: Gilroy-Bold;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+
+}
+
+.newGuideLine {
+    width: 100%;
+    height: 0.125rem;
+    background: rgba(217, 217, 217, 0.11);
+}
+
+.createButton {
+    color: #000;
+    font-family: Gilroy-SemiBold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12.125rem;
+    height: 2.125rem;
+    border-radius: 0.6875rem;
+    background: #FFF;
+    outline: 3px solid rgba(255, 255, 255, 0.30);
+    cursor: pointer;
+    position: relative;
+    z-index: 4444444444;
+}
+
+.createButton:hover {
+    opacity: 0.8;
+}
+
+.guideView {
+    color: white;
+    word-break: break-all;
+    font-family: 'Gilroy-Medium';
+    padding: 1.5rem;
+    height: 90%;
+    overflow: auto;
+}
+
+.guideView img {
+    display: block;
+    /* width: 44.0625rem;
+    height: 18.75rem; */
+    object-fit: cover;
+}
+
+
+
+
+
+.createNewGuideButtonsContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.createNewGuideButtons {
+    height: 2.5rem;
+    padding: .5rem;
+    display: flex;
+    align-items: center;
+    column-gap: .75rem;
+    border-radius: 0.875rem;
+    background: rgba(255, 255, 255, 0.30);
+    position: relative;
+}
+
+.editorButton {
+    background-color: rgba(255, 255, 255, .41);
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all .2s ease;
+}
+
+.guideImageModal {
+    position: absolute;
+    left: 5.5rem;
+    bottom: -12.5rem;
+    width: 20rem;
+    height: 12rem;
+    border-radius: 0.6875rem;
+    background: #FFF;
+    padding: .85rem;
+}
+
+
+.guideImageModal h1 {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gilroy-Medium;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 99.5%;
+    /* 0.995rem */
+}
+
+.guideImageModal input {
+    width: 100%;
+    height: 3rem;
+    outline: none;
+    border: none;
+    border-radius: 0.9375rem;
+    background: rgba(0, 0, 0, 0.19);
+    margin-top: 1.75rem;
+    padding: 0 1rem;
+    color: #000;
+
+    font-family: Gilroy-Medium;
+    font-size: 1rem;
+
+}
+
+.guideImageModal input::placeholder {
+    color: #000;
+
+}
+
+.guideImageModal div {
+    width: 100%;
+    height: 3rem;
+    border-radius: 0.9375rem;
+    background: #00A3FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    margin-top: .65rem;
+    font-family: Gilroy-Medium;
+    font-size: 1rem;
+
+}
+
+
+.editorButtonActive {
+    background-color: #fff;
+}
+
+.editorWrapper {
+    width: 100%;
+    height: 81%;
+    padding: 1rem;
+    padding-top: .25rem;
+
+
+}
+
+#editor {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    border-radius: 0.875rem;
+    background: rgba(0, 0, 0, 0.30);
+    border: none;
+    outline: none;
+    padding: .5rem;
+}
+
+#editor img {
+    display: block;
+}
+
+.editorButton:hover {
+    opacity: 0.8;
+}
+
+
+.editorButton div {
+    line-height: 0;
+}
+
+.createNewGuideHeader input::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+
+
+
+}
+
+
+.createNewGuideHeader p {
+    color: #FFF;
+
+    font-family: Gilroy-Bold;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 99.5%;
+}
+
+.createNewGuideButton p {
+    color: #FFF;
+    font-family: Gilroy-SemiBold;
+    font-size: 1rem;
+
+}
+
+.createNewGuideButton img {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+}
+
+
+
+
+.guidebookitem:hover {
+    opacity: 0.9;
+}
+
+
+.guidebookitem div {
+    display: flex;
+    align-items: center;
+    column-gap: .75rem;
+}
+
+.guidebookitem div p {
+    color: #FFF;
+
+    font-family: Gilroy-SemiBold;
+
+}
+
+.guidebookitem div img {
+    width: 1.43625rem;
+    height: auto;
+    object-fit: cover;
+}
+
+.guidebookitem>img {
+    width: 0.59694rem;
+    height: 1.06019rem;
+    object-fit: cover;
+
+}
+
+
+.guidebookcategory {
+    color: rgba(255, 255, 255, 0.24);
+
+    font-family: Gilroy-MediumItalic;
+    font-size: 0.75rem;
+    margin: 1rem 0;
+}
+
+.guidebookright {
+    position: relative;
+    width: 91.5rem;
+    height: 50.8125rem;
+    border-radius: 0.625rem;
+    background: rgba(28, 27, 38, 0.70);
+}
+
+.keyboardoverlay {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 44;
+    width: 100%;
+    height: 100%;
+}
+
+.keyboardcontainer {
+    position: absolute;
+    left: 53.5%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+    z-index: 70000;
+}
+
+.keyboarddesccontainer {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1.5rem;
+    height: 10rem;
+    width: 97%;
+    z-index: 33333;
+    border-radius: 0.4375rem;
+    background: #282636;
+    box-shadow: 0px -1px 0.9px 0px rgba(255, 136, 51, 0.41), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.40);
+
+    font-family: Gilroy-SemiBold;
+    font-size: 1.5rem;
+
+}
+
+.keyboardCombinationContainer {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding: 0 1.75rem;
+}
+
+.keyboardCombinationContainerDesc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: .5rem;
+    flex: 2;
+}
+
+.keyboardCombinationContainerDesc input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: #FFF;
+
+    font-family: Gilroy-SemiBold;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 99.5%;
+    padding: 0 1rem;
+    width: 100%;
+    text-align: center;
+}
+
+.keyboardInputPlaceholder {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin: .25rem 0;
+
+}
+
+.keyboardInputPlaceholder>span {
+    color: #FFF;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gilroy-SemiBold;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 99.5%;
+    /* 1.4925rem */
+    opacity: 0.5;
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+
+}
+
+.keyboardInputPlaceholder>span span {
+    opacity: 0.5;
+    color: #F83;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Gilroy-SemiBold;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 99.5%;
+}
+
+.keyboardInputPlaceholder input {
+    position: relative;
+}
+
+.keyboardInputPlaceholder input:invalid {
+    background: none;
+}
+
+.keyboardCombinationContainerDesc input::placeholder {
+
+    color: #ffffff6c;
+
+}
+
+
+.keyboardCombinationContainerDesc p {
+    color: #FFF;
+
+    font-family: Gilroy-SemiBold;
+    font-size: 1.5rem;
+
+}
+
+.keyboardCombinationWrapper {
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+}
+
+.keyboardCombinationWrapper p {
+    color: #FFF;
+
+    font-family: Gilroy-SemiBold;
+    font-size: 1rem;
+    text-align: center;
+
+}
+
+.selectedCommandLeft {
+    display: flex;
+    align-items: center;
+    column-gap: 2rem;
+    padding-left: 1.5rem;
+}
+
+.selectedCommandDesc {
+    position: absolute;
+    left: 22rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #FFF;
+    text-align: center;
+    font-family: Gilroy-SemiBold;
+    font-size: 1.5rem;
+    width: 70%;
+}
+
+.selectedCommandLine {
+    width: 0.125rem;
+    height: 6.25rem;
+    background: #D9D9D9;
+}
+
+.selectedCommandContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.commandssearchinputcontainer {
+    display: flex;
+    align-items: center;
+    width: 95%;
+    height: 3.75rem;
+    border-radius: 0.625rem;
+    background: rgba(0, 0, 0, 0.50);
+    column-gap: 1rem;
+    padding: 0 1rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5rem;
+    z-index: 3000;
+}
+
+.commandssearchinputcontainer input {
+    width: 95%;
+    height: 100%;
+    border: none;
+    outline: none;
+    appearance: none;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.8);
+
+    font-family: Gilroy-SemiBold;
+    font-size: 1rem;
+
+}
+
+.commandscontainer {
+    width: 95%;
+    height: 28.5rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 9.85rem;
+    z-index: 3000;
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    align-content: flex-start;
+
+}
+
+.commandbox {
+    width: 16.58rem;
+    height: 3.75rem;
+    border-radius: 0.625rem;
+    background: rgba(0, 0, 0, 0.50);
+    cursor: pointer;
+    transition: all .2s ease;
+    padding: 0 .75rem;
+    display: flex;
+    align-items: center;
+    column-gap: 1.1rem;
+}
+
+.commandbox p {
+    color: #FFF;
+
+    font-family: Gilroy-SemiBold;
+
+}
+
+
+.commandbox img {
+    width: 1.24631rem;
+    height: 1.11875rem;
+    object-fit: contain;
+}
+
+.commandbox:hover {
+    opacity: 0.9;
+}
+
+
+.commandssearchinputcontainer input::placeholder {
+    color: rgba(255, 255, 255, 0.19);
+
+}
+
+.keybindsedit {
+    position: absolute;
+    top: 2rem;
+    right: 1.8rem;
+    color: #FFF;
+    text-align: right;
+    font-family: Gilroy-Bold;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 99.5%;
+}
+
+.commandssearchinputcontainer img {
+    width: 1.25rem;
+    height: 1.125rem;
+    object-fit: contain;
+}
+
+.keybindsheader {
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+    position: absolute;
+    top: 2rem;
+    left: 1.8rem;
+}
+
+.keybindsheader img {
+    width: 2.31044rem;
+    height: 1.45125rem;
+    object-fit: contain;
+}
+
+.keybindsheader p {
+    color: #FFF;
+
+    font-family: Gilroy-Bold;
+    font-size: 1.5rem;
+
+}
+
+.keyboard-row {
+    display: flex;
+    align-items: center;
+    column-gap: .75rem;
+    position: relative;
+}
+
+
+
+.keyboardkey {
+    width: 4.611rem;
+    height: 4.39481rem;
+    border-radius: 0.57638rem;
+    border: 1.153px solid rgba(255, 136, 51, 0.50);
+    background: rgba(0, 0, 0, 0.58);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    font-family: "Proxima Nova";
+    font-size: 1.44094rem;
+    font-weight: 700;
+    cursor: pointer;
+
+}
+
+.esc {
+    width: 7.34875rem;
+}
+
+.keyboard-margin-right {
+    margin-right: 1.5rem;
+}
+
+.backspace {
+    width: 6.6rem;
+    font-size: 0.93663rem;
+
+}
+
+.tab {
+    width: 7.34875rem;
+}
+
+.enter {
+    width: 7.5rem;
+    height: 9.31819rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    right: 6rem;
+    top: 0;
+    cursor: pointer;
+    z-index: 3000;
+}
+
+.enter-no-absolute {
+    position: static;
+}
+
+.enter-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+}
+
+.enter-wrapper p {
+    color: #FFF;
+    font-family: "Proxima Nova";
+    font-size: 1.44094rem;
+    font-weight: 700;
+    letter-spacing: 0.1585rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1.2rem;
+}
+
+.caps {
+    width: 8.64556rem;
+}
+
+.leftshift {
+    width: 11rem;
+}
+
+.rightshift {
+    width: 11rem;
+
+}
+
+.leftctrl {
+    width: 9.8rem;
+
+}
+.rightctrl {
+    width: 9.8rem;
+
+}
+
+.leftalt {
+    width: 6.90781rem;
+}
+
+.rightalt {
+    width: 6.90781rem;
+}
+
+.space {
+    width: 31.19613rem;
+}
+
+.altgr {
+    width: 5.97988rem;
+    font-size: 1.08069rem;
+
+}
+
+.guidebookdiscord:hover {
+    box-shadow: 0px 4px 18.9px 0px #000;
+    transition: box-shadow 0.5s;
+    cursor: pointer;
+}

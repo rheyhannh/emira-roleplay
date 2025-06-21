@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue/vue.global.js"></script>
+    <script src="./vue/vuex.global.js"></script>
+    <script src="./utils/postNui.js"></script>
+    <script src="./utils/progressbar.js"></script>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./fonts.css">
+    <link rel="stylesheet" href="./responsive.css">
+    <link rel="stylesheet" href="./components/dailyrewards/index.css">
+    <link rel="stylesheet" href="./components/battlepass/index.css">
+    <link rel="stylesheet" href="./components/guidebook/index.css">
+    <link rel="stylesheet" href="./components/store/index.css">
+</head>
+<body>
+    <div id="app" style="display: none">
+        <div v-show="show" class="main">
+            <div v-if="exitModal" class="buy-modal-overlay"></div>
+            <div v-if="exitModal" class="buy-modal">
+                <p>{{locales.are_you_sure_to_exit}}</p>
+                <div class="buy-modal-buttons">
+                    <div @click="setExitModal(false)" class="cancel-button">{{locales.cancel}}</div>
+                    <div @click="navActions('exit_game')">{{locales.confirm}}</div>
+                </div>
+            </div>
+            <div class="notify-container">
+                <transition-group name="fade">
+                    <div :style="cssThemes[theme].notifyBG" :key="index" class="notify"
+                        v-for="(notification, index) in notifications">
+                        <div class="notify-icon">
+                            <img
+                                :src="notification.type == 'success' ? './assets/images/successfull-icon.png' : './assets/images/error-icon.png'">
+                        </div>
+                        <div class="notify-right">
+                            <h1>{{notification.header}}</h1>
+                            <p>{{notification.text}}</p>
+                        </div>
+                    </div>
+                </transition-group>
+            </div>
+            <img class="left-bottom-overlay" src="./assets/images/left-bottom-overlay.png">
+            <img class="right-bottom-overlay" src="./assets/images/right-bottom-overlay.png">
+            <img class="right-top-overlay" src="./assets/images/right-top-overlay.png">
+            <img class="left-top-overlay" :src="'./assets/images/themes/' + theme +'/left-top-overlay.png' ">
+            <img class="bottom-center-overlay" :src="'./assets/images/themes/' + theme +'/bottom-center-overlay.png' ">
+
+            <div class="header">
+                <div class="info-header">
+                    <p @click="setActivePage('main')" class="pausemenu-text" :style="cssThemes[theme].pausemenuHeader">{{locales.pausemenu}}</p>
+                    <p class="time">{{getPausemenuHeader}}</p>
+                </div>
+                <img class="line" src="./assets/images/line.png">
+                <img class="logo" src="./assets/images/logo.png">
+                <img class="line" src="./assets/images/line.png">
+                <div class="exit">
+                    <p v-html="locales.exit_pausemenu"></p>
+                    <div class="exit-button">ESC</div>
+                </div>
+            </div>
+            <div class="menus" v-show="activePage == 'main'">
+                <div class="left-menu">
+                    <div v-if="navMenu.daily_awards" @click="setActivePage('dailyrewards')" class="dailyrewardbox">
+                        <div class="dailyrewardtextcontainer">
+                            <p :style="cssThemes[theme].dailyRewardText" v-html="locales.dailyrewards_text"></p>
+                            <p v-html="locales.dailyrewards_text"></p>
+                        </div>
+                        <div class="dailyrewardtime">
+                            <p>{{getRemainTime}}hr</p>
+                            <img src="./assets/images/time-icon.png">
+                        </div>
+                        <p class="dailyrewarditemtext">{{getCurrentDayItem?.label}}</p>
+                        <img class="dailyrewarditem" :src="'./assets/item_images/'+getCurrentDayItem?.image">
+                        <p class="clicktodisplay">{{locales.click_to_display}}</p>
+                    </div>
+                    <div class="menu-items">
+                        <p class="menu-item" @click="setExitModal(true)" v-if="navMenu.quit_game" :class="getMenuItemColor">{{locales.exit}}</p>
+                        <p class="menu-item" @click="navActions('map')" :class="getMenuItemColor">{{locales.map}}</p>
+                        <div class="menu-item" :class="getMenuItemColor" v-if="navMenu.store" @click="setActivePage('store')">{{locales.store}}<div
+                                class="hotdeals">{{locales.hot_deals}}</div>
+                        </div>
+                        <p class="menu-item" @click="navActions('settings')" :class="getMenuItemColor">{{locales.settings}}</p>
+                        <p class="menu-item" :class="getMenuItemColor" v-if="navMenu.guidebook" @click="setActivePage('guidebook')">{{locales.guidebook}}</p>
+                        <p class="menu-item" :class="getMenuItemColor" v-if="navMenu.battlepass" @click="setActivePage('battlepass')">{{locales.battlepass_menu}}
+                        </p>
+                        <p v-if="codemMultichar" @click="OpenMultichar" class="menu-item" :class="getMenuItemColor">{{locales.characters}}</p>
+                    </div>
+                </div>
+                <div class="right-menu">
+                    <div class="onlineplayerscontainer" :style="cssThemes[theme].onlinePlayersContainer">
+                        <img class="leftplayers" src="./assets/images/left-players.png">
+                        <p :style="cssThemes[theme].onlinePlayersText">{{playersAmount}} {{locales.online_players}}</p>
+                        <img class="rightplayers" src="./assets/images/right-players.png">
+
+                    </div>
+                    <div class="characterinformations" :style="characterInformationsBG">
+                        <div class="characterinformationstop">
+                            <div class="characterppname">
+                                <div class="characterpp" :style="cssThemes[theme].ppBorder">
+                                    <img src="./assets/images/example_pp.png">
+                                </div>
+                                <div class="characterright">
+                                    <p class="charactername">{{playerName}} - {{id}}</p>
+                                    <p class="characterjob">{{jobData.job}} - {{jobData.job_grade_name}}</p>
+
+                                </div>
+                            </div>
+                            <div class="ping">
+                                <img src="./assets/images/pingicon.png">
+                                <p>{{ping}}ms</p>
+                            </div>
+                        </div>
+                        <div class="characterinformationsbottom">
+                            <div class="cashcontainer">
+                                <img src="./assets/images/cashicon.png">
+                                <div>
+                                    <p>{{locales.cash}}</p>
+                                    <p>${{numberWithSpaces(moneyData.cash)}}</p>
+                                </div>
+                            </div>
+                            <div class="bankcontainer">
+                                <div>
+                                    <p>{{locales.bank}}</p>
+                                    <p>${{numberWithSpaces(moneyData.bank)}}</p>
+                                </div>
+                                <img src="./assets/images/bankicon.png">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="battlepassmissions" v-show="navMenu.battlepass">
+                        <div class="dailyrewardtextcontainer">
+                            <p v-html="locales.battlepass_missions"></p>
+                        </div>
+                        <div class="dailyrewardtime">
+                            <p>{{getRemainBattlepassMissionTime}}hr</p>
+                            <img src="./assets/images/time-icon.png">
+                        </div>
+                        <div class="battlepassmissionscontainer2">
+                            <div v-for="(mission, index) in battlepassData.missions" class="battlepassmission">
+                                <div class="battlepassmissionflex">
+                                    <img class="battlepassmissionicon" src="./assets/images/battlepassmissionicon.png">
+                                    <div class="battlepassmissioninfo">
+                                        <h1 :style="{'text-decoration': mission.completed ? 'line-through' : 'none'}">{{getBattlepassMissionById(mission.id).desc}}</h1>
+                                        <p :style="{'text-decoration': mission.completed ? 'line-through' : 'none'}">{{locales.complete_mission}} <span>{{getBattlepassMissionById(mission.id).xpAmount}}BP</span></p>
+                                    </div>
+                                </div>
+                                <svg height="98%" viewBox="0 0 44 93" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M40 89C30.9724 87.3031 22.6873 82.7205 16.3119 75.8977C9.93642 69.0749 5.79206 60.3559 4.46265 50.9691C3.13324 41.5823 4.68579 32.0007 8.90157 23.5744C13.1173 15.1482 19.7839 8.30181 27.9619 4"
+                                        stroke="white" stroke-opacity="0.24" stroke-width="8" stroke-linecap="round" />
+                                    <path :id="'battlepassmissionprogressbar'+index"
+                                        d="M40 89C30.9724 87.3031 22.6873 82.7205 16.3119 75.8977C9.93642 69.0749 5.79206 60.3559 4.46265 50.9691C3.13324 41.5823 4.68579 32.0007 8.90157 23.5744C13.1173 15.1482 19.7839 8.30181 27.9619 4"
+                                        stroke="white" stroke-width="8" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-show="navMenu.store" class="hotdealcontainer" @click="hotDeal">
+                        <p class="hotdealtext">{{locales.hot_deal}}</p>
+                  
+                        <img :style="fullImage" class="hotdealitem" :src="getHotDealData?.image">
+                        <p class="clicktodisplayhotdeal">{{locales.click_to_display_store}} </p>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom" v-show="activePage == 'main'">
+                <img class="line" src="./assets/images/line.png">
+                <div @click="navActions('exit_menu')" class="resumebutton">
+                    <p :style="cssThemes[theme].resumeText" :class="{'resumeTextHover':hoverResume}">{{locales.resume}}</p>
+                    <p :style="{'font-size': hoverResume ? '3.9rem' : '3.25rem'}" @mouseover="hoverResume = true"
+                        @mouseleave="hoverResume = false">{{locales.resume}}</p>
+                </div>
+                <img class="line" src="./assets/images/line.png">
+            </div>
+            <component :is="activePage"></component>
+        </div>
+    </div>
+    <script type="module" src="./utils/inlineSvg.js"></script>
+    <script type="module" src="./utils/importTemplate.js"></script>
+    <script type="module" src="./index.js"></script>
+</body>
+
+</html>

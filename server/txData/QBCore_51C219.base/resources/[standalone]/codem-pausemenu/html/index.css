@@ -1,0 +1,793 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.notify-container {
+    position: absolute;
+    left: 50%;
+    top: 1rem;
+    transform: translateX(-50%);
+    z-index: 111111111;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.notify {
+    width: 19.625rem;
+    min-height: 5rem;
+
+    display: flex;
+    column-gap: 1rem;
+    padding: 1rem;
+
+    border-radius: 0.5rem;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 1px 0px 0px rgba(255, 255, 255, 0.25) inset;
+}
+
+.notify-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.1875rem;
+    background: rgba(0, 0, 0, 0.31);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notify-icon img{
+    width: 0.9375rem;
+height: 0.9375rem;
+object-fit: cover;
+}
+
+.notify-right {
+    display: flex;
+    flex-direction: column;
+    row-gap: .35rem;
+    width: 80%;
+}
+
+.notify-right h1 {
+    color: #000;
+
+    font-family: Gilroy-Bold;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 99.5%;
+}
+
+.notify-right p {
+    color: rgba(0, 0, 0, 0.55);
+
+    font-family: Gilroy-Medium;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 99.5%;
+}
+
+
+
+.main {
+    width: 100%;
+    height: 100%;
+    background-image: url(./assets/images/overlay.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 1rem 3rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    column-gap: 2rem;
+    justify-content: space-between;
+    position: relative;
+    z-index: 62;
+}
+
+.exit {
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+}
+
+.exit p {
+    color: #FFF;
+    text-align: right;
+    text-shadow: 0px 0px 35px rgba(255, 146, 67, 0.45);
+    font-family: Gilroy-SemiBold;
+    font-size: 0.75rem;
+
+}
+
+.exit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.125rem;
+    height: 1.875rem;
+    border-radius: 0.3125rem;
+    background: #FE002E;
+    box-shadow: 0px 0px 23.4px 0px rgba(254, 0, 46, 0.41);
+    font-family: Gilroy-Heavy;
+    color: #47010D;
+
+    text-shadow: 0px 0px 35px rgba(255, 146, 67, 0.45);
+    font-size: 0.75rem;
+
+}
+
+.info-header {
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+}
+
+.pausemenu-text {
+    cursor: pointer;
+    font-family: Gilroy-Black;
+    font-size: 1.75rem;
+}
+
+.time {
+    color: #FFF;
+    text-shadow: 0px 0px 35px rgba(255, 146, 67, 0.45);
+    font-family: Gilroy-SemiBold;
+    font-size: 1.2rem;
+}
+
+.line {
+    width: 34.875rem;
+}
+
+
+.menus {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    position: relative;
+    z-index: 55;
+}
+
+
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5rem;
+    width: 19rem;
+}
+
+.left-menu {
+    display: flex;
+    flex-direction: column;
+    row-gap: 7.5rem;
+}
+
+
+.right-menu {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+}
+
+.menu-item {
+    color: #FFF;
+    font-family: Gilroy-BlackItalic;
+    font-size: 2.25rem;
+    transition: all .2s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.hotdeals {
+    position: absolute;
+    right: 4.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5rem;
+    height: 1.625rem;
+    background-image: url(./assets/images/hotdeals.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    color: #FFF;
+    text-shadow: 0px 0px 35px rgba(255, 146, 67, 0.45);
+    font-family: Gilroy-HeavyItalic;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-itemorange:hover {
+    color: #F83;
+    font-size: 2.7rem;
+}
+
+.menu-itemgreen:hover {
+    color: #43FF88;
+    font-size: 2.7rem;
+}
+
+.menu-itempink:hover {
+    color: #FF43DD;
+    font-size: 2.7rem;
+}
+
+.menu-itemred:hover {
+    color: #FF4343;
+    font-size: 2.7rem;
+}
+
+.menu-itemblue:hover {
+    color: #43CDFF;
+    font-size: 2.7rem;
+}
+
+.menu-itemwhite:hover {
+    color: #FFF;
+    font-size: 2.7rem;
+}
+
+.clicktodisplay {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    color: #FFF;
+    font-family: Gilroy-SemiBoldItalic;
+    font-size: 0.8125rem;
+}
+
+.dailyrewardbox {
+    width: 18.75rem;
+    height: 18.75rem;
+    background-image: url(./assets/images/dailyrewardbox.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    cursor: pointer;
+    transition: transform .4s linear;
+}
+
+.dailyrewardbox:hover {
+   transform: scale(1.05);
+   transition: transform .4s linear;
+}
+
+.dailyrewardtextcontainer {
+    position: absolute;
+    left: .75rem;
+    top: .75rem;
+}
+
+.dailyrewardtextcontainer p {
+    position: absolute;
+    font-family: Gilroy-BlackItalic;
+    font-size: 1.5rem;
+}
+
+
+.dailyrewardtextcontainer p:first-child {
+    color: #F83;
+    left: .1rem;
+    top: .1rem;
+}
+
+.dailyrewardtextcontainer p:last-child {
+    color: #FFF;
+}
+
+.dailyrewardtime {
+    position: absolute;
+    right: .75rem;
+    top: .75rem;
+    display: flex;
+    align-items: center;
+    column-gap: .75rem;
+}
+
+.dailyrewardtime p {
+    color: #FFF;
+    font-family: Gilroy-SemiBoldItalic;
+    font-size: 0.8125rem;
+}
+
+.dailyrewardtime img {
+    width: 1.23856rem;
+    height: 1.131rem;
+    object-fit: cover;
+}
+
+.logo {
+    width: 10.8125rem;
+    height: 3.375rem;
+    object-fit: cover;
+}
+
+.dailyrewarditem {
+    width: 6.25rem;
+    height: 6.25rem;
+    object-fit: cover;
+    position: absolute;
+    left: 45%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0px 22px 9.1px 0px #000);
+}
+
+.dailyrewarditemtext {
+
+    color: black;
+    -webkit-text-fill-color: transparent;
+    /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.34);
+    font-family: Gilroy-BlackItalic;
+    font-size: 3.25rem;
+
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+}
+
+.bottom {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    z-index: 46664;
+
+}
+
+.resumebutton {
+    position: relative;
+
+}
+
+.resumebutton p {
+    text-shadow: 0px 0px 68px rgba(255, 255, 255, 0.25);
+    font-family: Gilroy-BlackItalic;
+    font-size: 3.25rem;
+    cursor: pointer;
+    transition: all .2s ease;
+    position: absolute;
+    width: max-content;
+
+    transform: translateY(-60%) translateX(-35%);
+}
+
+.resumebutton p:first-child {
+    color: #F83;
+    font-size: 3.25rem;
+    left: .1rem;
+    top: .1rem;
+}
+
+.resumebutton p:last-child {
+    color: #FFF;
+
+}
+
+
+
+.onlineplayerscontainer {
+    border-radius: 0.5rem;
+    width: 21.875rem;
+    height: 3.125rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.leftplayers {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3rem;
+    object-fit: cover;
+    height: 100%;
+    transition: all .2s ease;
+
+}
+
+.rightplayers {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 3rem;
+    height: 100%;
+    object-fit: cover;
+    transition: all .2s ease;
+
+}
+
+.onlineplayerscontainer:hover .rightplayers {
+    width: 4.5rem;
+
+}
+
+.onlineplayerscontainer:hover .leftplayers {
+    width: 4.5rem;
+
+}
+
+.onlineplayerscontainer p {
+    font-family: Gilroy-Bold;
+    font-size: 1.25rem;
+}
+
+.characterinformations {
+    width: 21.875rem;
+    height: 10.375rem;
+
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.characterinformationstop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.characterppname {
+    display: flex;
+    column-gap: .75rem;
+    align-items: center;
+}
+
+.characterpp {
+    width: 2.84094rem;
+    height: 2.84094rem;
+    object-fit: cover;
+    padding: .1rem;
+    border-radius: 50%;
+
+}
+
+.characterpp img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.charactername {
+    color: #FFF;
+    font-family: Gilroy-Bold;
+}
+
+.characterjob {
+    color: rgba(255, 255, 255, 0.61);
+    font-family: Gilroy-SemiBoldItalic;
+    font-size: 0.875rem;
+}
+
+.characterright {
+    display: flex;
+    flex-direction: column;
+    row-gap: .2rem;
+}
+
+.ping {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: .25rem;
+}
+
+.ping img {
+    width: 1.125rem;
+    height: 0.75rem;
+}
+
+.ping p {
+    color: #35FF23;
+    font-family: Gilroy-SemiBoldItalic;
+    font-size: 0.61856rem;
+}
+
+.characterinformationsbottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cashcontainer {
+    display: flex;
+    align-items: center;
+    column-gap: .8rem;
+}
+
+
+.bankcontainer {
+    display: flex;
+    align-items: center;
+    column-gap: .8rem;
+}
+
+.cashcontainer img {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.bankcontainer img {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.cashcontainer div {
+    display: flex;
+    flex-direction: column;
+    row-gap: .15rem;
+}
+
+.cashcontainer div p:first-child {
+    color: #B4FF90;
+    text-shadow: 0px 0px 35px rgba(196, 255, 72, 0.45);
+    font-family: Gilroy-Black;
+    font-size: 0.75rem;
+}
+
+.cashcontainer div p:last-child {
+    color: #FFF;
+    text-shadow: 0px 0px 35px rgba(255, 255, 255, 0.45);
+    font-family: Gilroy-SemiBold;
+    font-size: 0.75rem;
+}
+
+.bankcontainer div {
+    display: flex;
+    flex-direction: column;
+    row-gap: .15rem;
+}
+
+.bankcontainer div p:first-child {
+    color: #FFF;
+    text-shadow: 0px 0px 35px rgba(196, 255, 72, 0.45);
+    font-family: Gilroy-Black;
+    font-size: 0.75rem;
+    text-align: right;
+}
+
+.bankcontainer div p:last-child {
+    color: #FFF;
+    text-shadow: 0px 0px 35px rgba(255, 255, 255, 0.45);
+    font-family: Gilroy-SemiBold;
+    font-size: 0.75rem;
+}
+
+.battlepassmissions {
+    width: 21.875rem;
+    height: 22.75rem;
+    position: relative;
+    padding: .5rem;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.20);
+}
+
+.battlepassmissionscontainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: .75rem;
+    margin-top: 5.45rem;
+    max-height: 21rem;
+    overflow: auto;
+}
+.battlepassmissionscontainer2 {
+    display: flex;
+    flex-direction: column;
+    row-gap: .75rem;
+    margin-top: 5.45rem;
+    max-height: 75%;
+    overflow: auto;
+}
+.battlepassmission {
+    width: 100%;
+    height: 4.75rem;
+    border-radius: 0.3125rem;
+    background: rgba(0, 0, 0, 0.24);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: .55rem;
+}
+
+
+.battlepassmissionicon {
+    width: 1.75rem;
+    height: 1.75rem;
+    object-fit: cover;
+}
+
+.battlepassmissioninfo {
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+}
+
+.battlepassmissioninfo h1 {
+    color: #FFF;
+    font-family: Gilroy-SemiBold;
+    font-size: 0.875rem;
+
+}
+
+.battlepassmissioninfo p {
+    color: rgba(255, 255, 255, 0.57);
+
+    font-family: Gilroy-Regular;
+    font-size: 0.75rem;
+}
+
+.battlepassmissioninfo p span {
+    color: rgba(255, 255, 255, 0.86);
+}
+
+.hotdealcontainer {
+    width: 21.875rem;
+    height: 13.1875rem;
+    background-image: url(./assets/images/hotdealcontainer.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    cursor: pointer;
+    transition: all .4s ease;
+}
+
+.hotdealcontainer:hover {
+    background-image: url(./assets/images/hotdealcontainerhover.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.hotdealcontainer:hover .hotdealitem {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+
+.hotdealitem {
+    position: absolute;
+    left: 50%;
+    transition: all .4s ease;
+
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 14.5rem;
+    height: 10rem;
+    object-fit: contain;
+}
+
+.hotdealtext {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    color: #FFF;
+    z-index: 55;
+    font-family: Gilroy-Heavy;
+    font-size: 0.875rem;
+}
+
+
+
+.clicktodisplayhotdeal {
+    color: rgba(255, 255, 255, 0.45);
+    font-family: Gilroy-SemiBoldItalic;
+    font-size: 0.8125rem;
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+}
+
+.resumeTextHover {
+    font-size: 5.07rem !important;
+}
+
+.left-bottom-overlay {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 44;
+
+}
+
+.right-bottom-overlay {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 44;
+
+}
+
+.right-top-overlay {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 44;
+
+}
+
+.left-top-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 44;
+
+}
+
+.bottom-center-overlay {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    z-index: 22;
+}
+
+.dailyrewardgoback svg {
+    fill: inherit;
+}
+
+.dailyrewardgoback path {
+    fill: inherit;
+}
+
+.editorButton svg {
+    stroke: inherit;
+
+}
+
+.editorButton svg path {
+    stroke: inherit;
+    fill: inherit;
+
+}
+
+
+
+::-webkit-scrollbar {
+    display: none;
+}

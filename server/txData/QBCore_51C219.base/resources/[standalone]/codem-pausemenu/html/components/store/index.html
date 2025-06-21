@@ -1,0 +1,125 @@
+<div class="store">
+
+    <div v-if="buyModal" class="buy-modal-overlay"></div>
+    <div v-if="buyModal" class="buy-modal">
+        <p v-html="locales.are_you_sure_to_buy"> </p>
+        <div class="buy-modal-buttons">
+            <div @click="toggleBuyModal(false, false)" class="cancel-button">{{locales.cancel}}</div>
+            <div @click="confirmBuy">{{locales.buy}}</div>
+        </div>
+    </div>
+    <div class="store-nav">
+        <div class="store-nav-items">
+            <div @click="setActiveStorePageData('main')" class="store-nav-item"
+                :style="activeStorePage == 'main' && getActiveStyle">{{locales.main}}</div>
+            <div v-for="item in storeItems" @click="setActiveStorePageData(item.name)" class="store-nav-item"
+                :style="activeStorePage == item.name && getActiveStyle">{{item.label}}</div>
+        </div>
+        <div class="store-nav-right">
+            <div class="store-nav-input">
+                <img src="./assets/images/Search.png">
+                <input v-model="mainFilterText" type="text" :placeholder="locales.search_anything">
+            </div>
+            <div class="store-nav-wallet">
+                <p :style="cssThemes[theme].pausemenuHeader">${{numberWithSpaces(moneyData.bank)}}</p>
+                <inlinesvg :fill="cssThemes[theme].backSvgHoverColor" src="./assets/images/wallet-icon.svg"></inlinesvg>
+            </div>
+        </div>
+
+    </div>
+
+    <div v-if="activeStorePage == 'main'" class="store-main" :style="{height : filterMainItems ? '56rem' : '44rem' }">
+        <template v-if="filterMainItems">
+            <div class="store-other-items">
+                <div class="store-other-item" v-for="item in filterMainItems">
+                    <div class="store-other-item-name">
+                        <h1>{{item.header}}</h1>
+                        <p>{{item?.label}}</p>
+                    </div>
+                    <p :style="cssThemes[theme].discordText" v-if="activeStoreCategory != 'mypeds'" class="store-item-price">${{numberWithSpaces(item.price)}}</p>
+                    <img :style="fullImage(item.itemtype)" :src="item?.image" class="store-other-item-img">
+                    <div v-if="activeStoreCategory != 'mypeds'" @click="toggleBuyModal(true, item)" :style="cssThemes[theme].buyNowButton"
+                        class="store-other-buy-button">
+                        <img src="./assets/images/shop-icon.png">
+                        <p>{{locales.buy_now}}</p>
+                    </div>
+                    <div v-else @click="changePed(item)" :style="cssThemes[theme].buyNowButton" class="store-other-buy-button">
+                        <p>{{entityModel == 'civilian' ? locales.change : locales.original}}</p>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template v-else>
+            <div class="manor-container">
+                <img class="manor-img" :src="'./assets/images/'+mainStoreItems[selectedStoreItem-1]?.big_image">
+                <div class="manor-text-contanier">
+                    <h1>{{mainStoreItems[selectedStoreItem-1]?.header}}</h1>
+                    <h2>{{mainStoreItems[selectedStoreItem-1]?.label}}</h2>
+                    <p>{{mainStoreItems[selectedStoreItem-1]?.desc}}</p>
+                </div>
+                <div class="manor-button-contanier">
+                    <p>${{numberWithSpaces(mainStoreItems[selectedStoreItem-1]?.price)}}</p>
+                    <div  @click="toggleBuyModal(true, mainStoreItems[selectedStoreItem-1])" :style="cssThemes[theme].buyNowButton">
+                        <img src="./assets/images/shop-icon.png">
+                       {{locales.buy_now.toUpperCase()}}
+                    </div>
+                </div>
+            </div>
+            <div class="store-main-right-items">
+                <div :style="getStoreBG(mainStoreItems[i-1]?.small_image)" class="store-right-item" v-for="i in mainStoreItems.length" @click="selectedStoreItem=i" v-show="selectedStoreItem != i">
+                    <h1>{{mainStoreItems[i-1]?.header}}</h1>
+                    <h2>{{mainStoreItems[i-1]?.label}}</h2>
+                    <div class="hotdeal">{{locales.hot_deal}}</div>
+                    <p>${{numberWithSpaces(mainStoreItems[i-1]?.price)}}</p>
+                    <div :style="cssThemes[theme].buyNowButton" @click="selectedStoreItem=i" class="inspect-button">{{locales.inspect}}</div>
+                </div>
+            </div>
+        </template>
+    </div>
+    <div v-else class="store-other">
+        <div class="store-other-categories">
+            <div class="store-other-categories-input">
+                <img src="./assets/images/search.png">
+                <input type="text" v-model="filterText" :placeholder="getStoreData.searchPlaceholder">
+            </div>
+            <div class="store-other-category-items-wrapper">
+                <div :style="activeStoreCategory == item.name && cssThemes[theme].guidebookItemContainerActive"
+                    @click="setActiveStoreCategory(item.name)"
+                    :class="{'store-other-category-item-mypeds': item.name == 'mypeds'}"
+                    class="store-other-category-item" v-for="item in getStoreData.categories">
+                    <p>{{item?.label}}</p>
+                    <img src="./assets/images/right-arrow.png">
+                </div>
+
+            </div>
+        </div>
+        <div class="store-other-items">
+            <div class="store-other-item" v-for="item in filterMainItems || getStoreDataItems">
+                <div class="store-other-item-name">
+                    <h1>{{item.header}}</h1>
+                    <p>{{item?.label}}</p>
+                </div>
+                <p :style="cssThemes[theme].discordText" v-if="activeStoreCategory != 'mypeds'" class="store-item-price">${{numberWithSpaces(item.price)}}</p>
+                <img :style="fullImage(item.itemtype)" :src="item?.image" class="store-other-item-img">
+                <div v-if="activeStoreCategory != 'mypeds'" @click="toggleBuyModal(true, item)" :style="cssThemes[theme].buyNowButton"
+                    class="store-other-buy-button">
+                    <img src="./assets/images/shop-icon.png">
+                    <p>{{locales.buy_now.toUpperCase()}}</p>
+                </div>
+                <div v-else @click="changePed(item)" :style="cssThemes[theme].buyNowButton" class="store-other-buy-button">
+                    <p>{{entityModel == 'civilian' ? locales.change : locales.original}}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="bottom">
+        <img class="line" src="./assets/images/line.png">
+        <div @click="setActivePage('main')" class="resumebutton">
+            <p :style="cssThemes[theme].resumeText" :class="{'resumeTextHover':hoverResume}">{{locales.go_back.toUpperCase()}}</p>
+            <p :style="{'font-size': hoverResume ? '3.9rem' : '3.25rem'}" @mouseover="hoverResume = true"
+                @mouseleave="hoverResume = false">{{locales.go_back.toUpperCase()}}</p>
+        </div>
+        <img class="line" src="./assets/images/line.png">
+    </div>
+</div>

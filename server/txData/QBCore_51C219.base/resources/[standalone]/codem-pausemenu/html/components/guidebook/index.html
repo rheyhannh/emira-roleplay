@@ -1,0 +1,439 @@
+<div class="guidebook">
+    <div v-if="createCommandModal || deleteGuideBookModal" class="createcommand-modal-overlay"></div>
+    <div v-if="createCommandModal" class="createcommand-modal">
+        <div class="createcommand-modal-command-container">
+            <img src="./assets/images/command-icon.png">
+            <input v-model="commandInfo.command" type="text" :placeholder="locales.enter_command">
+        </div>
+        <textarea v-model="commandInfo.desc" type="text" :placeholder="locales.command_desc"></textarea>
+        <div class="buy-modal-buttons">
+            <div @click="setCreateCommandModal(false)" class="cancel-button">{{locales.cancel}}</div>
+            <div @click="createCommand">{{locales.create}}</div>
+        </div>
+    </div>
+    <div v-if="deleteGuideBookModal" class="buy-modal">
+        <p v-html="locales.are_you_sure_to_delete"> </p>
+        <div class="buy-modal-buttons">
+            <div @click="setDeleteGuideBookModal(false, null)" class="cancel-button">{{locales.cancel}}</div>
+            <div @click="deleteGuide(selectedGuideBookID)">{{locales.buy}}</div>
+        </div>
+    </div>
+    <div class="guidebookwrapper">
+        <div class="guidebookleft">
+            <div class="guidebookheadercontainer">
+                <p class="guidebookheader">{{locales.welcome}}</p>
+                <img v-if="isAdmin" @click="setEditMode()"
+                    :src="editMode ? './assets/images/edit-confirm.png' : './assets/images/edit-mode.png' ">
+            </div>
+            <p class="guidebookcategory">{{locales.general}}</p>
+            <div class="guidebookitemcontainer">
+                <div @mouseover="hoverGuidebookItem['keybinds'] = true" @mouseleave="hoverGuidebookItem['keybinds'] = false"
+                    @click="setActiveCategory('keybinds')" class="guidebookitem"
+                    :style="activeCategory == 'keybinds' || hoverGuidebookItem['keybinds'] ? cssThemes[theme].guidebookItemContainerActive : ''">
+                    <div>
+                        <img src="./assets/images/keyboard-icon.png">
+                        <p>{{locales.keybinds}}</p>
+                    </div>
+                    <img src="./assets/images/right-arrow.png">
+                    <div v-if="activeCategory == 'keybinds' || hoverGuidebookItem['keybinds']" class="guidebookcategoryactive" :style="cssThemes[theme].guidebookItemContainerActive"></div>
+                </div>
+            
+            </div>
+            <div class="guidebookitemcontainer">
+                <div @mouseover="hoverGuidebookItem['commands'] = true" @mouseleave="hoverGuidebookItem['commands']=false"  @click="setActiveCategory('commands')" class="guidebookitem"
+                    :style="activeCategory == 'commands' || hoverGuidebookItem['commands'] ? cssThemes[theme].guidebookItemContainerActive : ''">
+                    <div>
+                        <img src="./assets/images/commands.png">
+                        <p>{{locales.commands}}</p>
+                    </div>
+                    <img src="./assets/images/right-arrow.png">
+                    <div v-if="activeCategory == 'commands' || hoverGuidebookItem['commands']" class="guidebookcategoryactive" :style="cssThemes[theme].guidebookItemContainerActive"></div>
+    
+                </div>
+           
+
+            </div>
+            <p class="guidebookcategory">{{locales.jobs}}</p>
+            <div v-for="item in guides" class="guidebookitemcontainer">
+                <div @mouseover="hoverGuidebookItem[item.id] = true" @mouseleave="hoverGuidebookItem[item.id] = false"
+                    @click="setActiveCategory('guidebook', item.id)" class="guidebookitem"
+                    :style="(activeCategory == 'guidebook' && item.id == selectedGuideBookId) || hoverGuidebookItem[item.id] ? cssThemes[theme].guidebookItemContainerActive : ''">
+                    <div>
+                        <img src="./assets/images/job-icon.png">
+                        <p>{{item.name}}</p>
+                    </div>
+                    <img src="./assets/images/right-arrow.png">
+                    <div v-if="(activeCategory == 'guidebook' && item.id == selectedGuideBookId) || hoverGuidebookItem[item.id]" class="guidebookcategoryactive" :style="cssThemes[theme].guidebookItemContainerActive"></div>
+                </div>
+                <!-- deleteGuide(item.id) -->
+                <div @click="setDeleteGuideBookModal(true, item.id); " v-if="editMode" class="deleteGuidebook" :style="((activeCategory == 'guidebook' && item.id == selectedGuideBookId) || hoverGuidebookItem[item.id]) && {backgroundColor : '#FF3434'}">
+                    <img src="./assets/images/delete.png">
+                </div>
+            </div>
+            <div class="guidebookdiscord" v-if="!editMode" @click="openLink('https://'+discordLink)"  :style="getDiscordBG">
+                <div class="guidebookdiscordwrapper">
+                    <div class="guidebookdiscordheader">
+                        <h1>{{locales.need_extra_help}} </h1>
+                        <p>{{locales.get_support}}</p>
+                    </div>
+                    <p :style="cssThemes[theme].discordText"
+                        class="guidebookdiscordlink">{{discordLink}}</p>
+                </div>
+            </div>
+            <div @click="setNewCreateGuide" v-else class="createNewGuideButton">
+                <p>{{createNewGuide ? locales.creating_new_guide : locales.create_new_guide}}</p>
+                <img v-if="!createNewGuide" src="./assets/images/add-icon.png">
+                <img v-else src="./assets/images/creatingguide.png">
+            
+            </div>
+        </div>
+        <div class="guidebookright">
+            <div v-if="createNewGuide" class="createNewGuideContainer">
+                <div class="createNewGuideHeader">
+                    <img src="./assets/images/add-icon.png">
+                    <input ref="guideNameInput" @click="handleBlur" @focusout="handleFocusout" :placeholder="locales.guide_name" v-model="guideName" type="text">
+                </div>
+                <div class="newGuideLine"></div>
+                <div class="createNewGuideButtonsContainer">
+                    <div class="createNewGuideButtons">
+                        <div @click="bold" :class="{editorButtonActive:boldMode}" class="editorButton">
+                            <inlinesvg :fill="boldMode ? 'black' : 'white'" src="./assets/images/editor-icon-1.svg"></inlinesvg>
+                        </div>
+                        <div class="editorButton" :class="{editorButtonActive:italicMode}" @click="setItalicMode">
+                            <inlinesvg :stroke="italicMode ? 'black' : 'white'"  src="./assets/images/editor-icon-2.svg"></inlinesvg>
+                        </div>
+                        <div :class="{editorButtonActive:uploadPhotoModal}" @click="setUploadPhotoModal(!uploadPhotoModal)" class="editorButton">
+                            <inlinesvg :stroke="uploadPhotoModal ? 'black' : 'white'" :fill="uploadPhotoModal ? 'black' : 'white'" src="./assets/images/editor-icon-3.svg"></inlinesvg>
+                        
+                        </div>
+                        <div v-if="uploadPhotoModal" class="guideImageModal">
+                            <h1>{{locales.upload_photo}}</h1>
+                            <h1>{{locales.by_link}}</h1>
+                            <input v-model="imgUrl" :placeholder="locales.url" type="text">
+                            <div @click="uploadImage">{{locales.upload}}</div>
+                        </div>
+                    </div>
+                    <div class="createButton" @click="createGuide();">{{locales.create_guide}}</div>
+
+                </div>
+                <div class="editorWrapper">
+                    <iframe id="editor" name="textField"></iframe>
+                </div>
+            </div>
+            <div v-if="editGuideBook" class="createNewGuideContainer">
+                <div class="createNewGuideHeader">
+                    <img src="./assets/images/add-icon.png">
+                    <input ref="guideNameInput" @click="handleBlur"  @focusout="handleFocusout" :placeholder="locales.guide_name" v-model="editedGuidebookCopy.name" type="text">
+                </div>
+                <div class="newGuideLine"></div>
+                <div class="createNewGuideButtonsContainer">
+                    <div class="createNewGuideButtons">
+                        <div @click="bold" :class="{editorButtonActive:boldMode}" class="editorButton">
+                            <inlinesvg :fill="boldMode ? 'black' : 'white'" src="./assets/images/editor-icon-1.svg"></inlinesvg>
+                        </div>
+                        <div class="editorButton" :class="{editorButtonActive:italicMode}" @click="setItalicMode">
+                            <inlinesvg :stroke="italicMode ? 'black' : 'white'"  src="./assets/images/editor-icon-2.svg"></inlinesvg>
+                        </div>
+                        <div :class="{editorButtonActive:uploadPhotoModal}" @click="setUploadPhotoModal(!uploadPhotoModal)" class="editorButton">
+                            <inlinesvg :stroke="uploadPhotoModal ? 'black' : 'white'" :fill="uploadPhotoModal ? 'black' : 'white'" src="./assets/images/editor-icon-3.svg"></inlinesvg>
+                        </div>
+                        <div v-if="uploadPhotoModal" class="guideImageModal">
+                            <h1>{{locales.upload_photo}}</h1>
+                            <h1>{{locales.by_link}}</h1>
+                            <input v-model="imgUrl" :placeholder="locales.url" type="text">
+                            <div @click="uploadImage">{{locales.upload}}</div>
+                        </div>
+                    </div>
+                    <div class="createButton" @click="saveGuide()">{{locales.save_guide}}</div>
+                </div>
+                <div class="editorWrapper">
+                    <iframe id="editor" name="textField"></iframe>
+                </div>
+            </div>
+            <div v-if="activeCategory == 'guidebook' && !createNewGuide && !editGuideBook" class="createNewGuideContainer">
+                <div style="top: 1.4rem;" class="createkeybindbuttoncontainer"  v-if="editMode">
+                    <div class="createkeybindbutton" @click="setEditGuidebook(true)">{{locales.edit_guide}}</div>
+                </div>
+                <div class="createNewGuideHeader">
+                    <img src="./assets/images/job-icon.png">
+                    <p>{{getGuideBookById(selectedGuideBookId).name}}</p>
+                </div>
+                <div class="newGuideLine"></div>
+                <div class="guideView" v-html="getGuideBookById(selectedGuideBookId).html"></div>
+            </div>
+            <template v-if="activeCategory == 'commands' && !createNewGuide">
+
+                <div class="keybindsheader">
+                    <img src="./assets/images/commands.png">
+                    <p>{{locales.commands}}</p>
+                </div>
+                <div class="createkeybindbuttoncontainer"  v-if="editMode">
+                    <div class="deletekeybindbutton" @click="deleteCommand(commands[selectedCommand])" v-if="commands?.[selectedCommand]" >{{locales.del_command}}</div>
+                    <div class="createkeybindbutton" @click="setCreateCommandModal(true)">{{locales.create_new_command_info}}</div>
+                </div>
+
+                <img class="keyboardoverlay" :src="'./assets/images/themes/'+theme+'/keyboardoverlay.png'">
+                <div :style="cssThemes[theme].keyboardBorder" class="commandssearchinputcontainer">
+                    <img src="./assets/images/commandicon.png">
+
+                    <input v-model="filterCommandText" type="text" :placeholder="locales.search_command">
+                </div>
+                <div :style="cssThemes[theme].keyboardShadow" class="keyboarddesccontainer">
+                    <template v-if="selectedCommand==null">{{locales.click_on_command}}</template>
+                    <div class="selectedCommandContainer" v-else>
+                        <div class="selectedCommandLeft">
+                            <div :style="cssThemes[theme].onlinePlayersContainer" class="commandbox">
+                                <img src="./assets/images/commandicon.png">
+                                <p>{{commands?.[selectedCommand]?.name}}</p>
+                            </div> 
+                            <div class="selectedCommandLine"></div>
+                        </div>
+                        <p class="selectedCommandDesc">{{commands?.[selectedCommand]?.desc}}</p>
+                    </div>
+                </div>
+                <div class="commandscontainer">
+                    <div :style="selectedCommand == index && cssThemes[theme].onlinePlayersContainer" class="commandbox" v-for="(command, index) in getFilteredCommands" @click="selectCommand(index)">
+                        <img src="./assets/images/commandicon.png">
+                        <p>{{command.name}}</p>
+                    </div>
+                </div>
+            </template>
+            <template v-if="activeCategory == 'keybinds' && !createNewGuide">
+                <div class="keybindsheader">
+                    <img src="./assets/images/keyboard-icon.png">
+                    <p>{{locales.keybinds}}</p>
+                </div>
+                <div class="createkeybindbuttoncontainer" v-if="editMode">
+                    <template v-if="keybinds[createKeyInfo.selectedKey]">
+                        <div class="createkeybindbutton" style="background-color: rgba(241, 140, 140, 1);" @click="deleteKeybind">{{locales.delete_keybind}}</div>
+                        <div class="createkeybindbutton" style="background: rgba(172, 241, 140, 1);" @click="createKeybind">{{locales.save_keybind}}</div>
+                    </template>
+                    <template v-else-if="createKeyInfo.selectedKey">
+                        <div class="createkeybindbutton" v-if="editMode && createKeyInfo.selectedKey" @click="createKeybind">{{locales.create_keybind}}</div>
+                    </template>
+                </div>
+                <div class="keybindsedit" v-if="editMode && !createKeyInfo.selectedKey">{{locales.click_to_key_to_create_keybind}}</div>
+                <img class="keyboardoverlay" :src="'./assets/images/themes/'+theme+'/keyboardoverlay.png'">
+                <div class="keyboardcontainer">
+                    <div class="keyboard-row">
+                        <div @click="setSelectedKey('ESC')" class="keyboardkey esc keyboard-margin-right":style="getKeyboardKeyBG('ESC')">ESC
+                        </div>
+                        <div @click="setSelectedKey('F1')" class="keyboardkey"  :style="getKeyboardKeyBG('F1')">F1</div>
+                        <div @click="setSelectedKey('F2')" class="keyboardkey" :style="getKeyboardKeyBG('F2')">F2</div>
+                        <div @click="setSelectedKey('F3')" class="keyboardkey" :style="getKeyboardKeyBG('F3')">F3</div>
+                        <div @click="setSelectedKey('F4')" class="keyboardkey keyboard-margin-right" :style="getKeyboardKeyBG('F4')">F4</div>
+                        <div @click="setSelectedKey('F5')" class="keyboardkey" :style="getKeyboardKeyBG('F5')">F5</div>
+                        <div @click="setSelectedKey('F6')" class="keyboardkey" :style="getKeyboardKeyBG('F6')">F6</div>
+                        <div @click="setSelectedKey('F7')" class="keyboardkey" :style="getKeyboardKeyBG('F7')">F7</div>
+                        <div @click="setSelectedKey('F8')" class="keyboardkey keyboard-margin-right" :style="getKeyboardKeyBG('F8')">F8</div>
+                        <div @click="setSelectedKey('F9')" class="keyboardkey" :style="getKeyboardKeyBG('F9')">F9</div>
+                        <div @click="setSelectedKey('F10')" class="keyboardkey" :style="getKeyboardKeyBG('F10')">F10</div>
+                        <div @click="setSelectedKey('F11')" class="keyboardkey" :style="getKeyboardKeyBG('F11')">F11</div>
+                        <div @click="setSelectedKey('F12')" class="keyboardkey" :style="getKeyboardKeyBG('F12')">F12</div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div @click="setSelectedKey('“')" class="keyboardkey" :style="getKeyboardKeyBG('“')">“</div>
+                        <div @click="setSelectedKey('1')" class="keyboardkey" :style="getKeyboardKeyBG('1')">1</div>
+                        <div @click="setSelectedKey('2')" class="keyboardkey" :style="getKeyboardKeyBG('2')">2</div>
+                        <div @click="setSelectedKey('3')" class="keyboardkey" :style="getKeyboardKeyBG('3')">3</div>
+                        <div @click="setSelectedKey('4')" class="keyboardkey" :style="getKeyboardKeyBG('4')">4</div>
+                        <div @click="setSelectedKey('5')" class="keyboardkey" :style="getKeyboardKeyBG('5')">5</div>
+                        <div @click="setSelectedKey('6')" class="keyboardkey" :style="getKeyboardKeyBG('6')">6</div>
+                        <div @click="setSelectedKey('7')" class="keyboardkey" :style="getKeyboardKeyBG('7')">7</div>
+                        <div @click="setSelectedKey('8')" class="keyboardkey" :style="getKeyboardKeyBG('8')">8</div>
+                        <div @click="setSelectedKey('9')" class="keyboardkey" :style="getKeyboardKeyBG('9')">9</div>
+                        <div @click="setSelectedKey('0')" class="keyboardkey" :style="getKeyboardKeyBG('0')">0</div>
+                        <div @click="setSelectedKey('-')" class="keyboardkey" :style="getKeyboardKeyBG('-')">-</div>
+                        <div @click="setSelectedKey('+')" class="keyboardkey" :style="getKeyboardKeyBG('+')">+</div>
+                        <div @click="setSelectedKey('BACKSPACE')" class="keyboardkey backspace" :style="getKeyboardKeyBG('BACKSPACE')">BACKSPACE</div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div @click="setSelectedKey('TAB')" class="keyboardkey tab" :style="getKeyboardKeyBG('TAB')">TAB</div>
+                        <div @click="setSelectedKey('Q')" class="keyboardkey" :style="getKeyboardKeyBG('Q')">Q</div>
+                        <div @click="setSelectedKey('W')" class="keyboardkey" :style="getKeyboardKeyBG('W')">W</div>
+                        <div @click="setSelectedKey('E')" class="keyboardkey" :style="getKeyboardKeyBG('E')">E</div>
+                        <div @click="setSelectedKey('R')" class="keyboardkey" :style="getKeyboardKeyBG('R')">R</div>
+                        <div @click="setSelectedKey('T')" class="keyboardkey" :style="getKeyboardKeyBG('T')">T</div>
+                        <div @click="setSelectedKey('Y')" class="keyboardkey" :style="getKeyboardKeyBG('Y')">Y</div>
+                        <div @click="setSelectedKey('U')" class="keyboardkey" :style="getKeyboardKeyBG('U')">U</div>
+                        <div @click="setSelectedKey('I')" class="keyboardkey" :style="getKeyboardKeyBG('I')">I</div>
+                        <div @click="setSelectedKey('O')" class="keyboardkey" :style="getKeyboardKeyBG('O')">O</div>
+                        <div @click="setSelectedKey('P')" class="keyboardkey" :style="getKeyboardKeyBG('P')">P</div>
+                        <div @click="setSelectedKey('[')" class="keyboardkey" :style="getKeyboardKeyBG('[')">[</div>
+                        <div @click="setSelectedKey(']')" class="keyboardkey" :style="getKeyboardKeyBG(']')">]</div>
+                        <div @click="setSelectedKey('ENTER')" :style="getEnterBG" class="enter">
+                            <div class="enter-wrapper">
+                                <p>ENTER</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div @click="setSelectedKey('CAPS')" class="keyboardkey caps" :style="getKeyboardKeyBG('CAPS')">CAPS</div>
+                        <div @click="setSelectedKey('A')" class="keyboardkey" :style="getKeyboardKeyBG('A')">A</div>
+                        <div @click="setSelectedKey('S')" class="keyboardkey" :style="getKeyboardKeyBG('S')">S</div>
+                        <div @click="setSelectedKey('D')" class="keyboardkey" :style="getKeyboardKeyBG('D')">D</div>
+                        <div @click="setSelectedKey('F')" class="keyboardkey" :style="getKeyboardKeyBG('F')">F</div>
+                        <div @click="setSelectedKey('G')" class="keyboardkey" :style="getKeyboardKeyBG('G')">G</div>
+                        <div @click="setSelectedKey('H')" class="keyboardkey" :style="getKeyboardKeyBG('H')">H</div>
+                        <div @click="setSelectedKey('J')" class="keyboardkey" :style="getKeyboardKeyBG('J')">J</div>
+                        <div @click="setSelectedKey('K')" class="keyboardkey" :style="getKeyboardKeyBG('K')">K</div>
+                        <div @click="setSelectedKey('L')" class="keyboardkey" :style="getKeyboardKeyBG('L')">L</div>
+                        <div @click="setSelectedKey(':')" class="keyboardkey" :style="getKeyboardKeyBG(':')">:</div>
+                        <div @click="setSelectedKey('@')" class="keyboardkey" :style="getKeyboardKeyBG('@')">@</div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div @click="setSelectedKey('LEFTSHIFT')" class="keyboardkey leftshift" :style="getKeyboardKeyBG('LEFTSHIFT')">SHIFT</div>
+                        <div @click="setSelectedKey('Z')" class="keyboardkey" :style="getKeyboardKeyBG('Z')">Z</div>
+                        <div @click="setSelectedKey('X')" class="keyboardkey" :style="getKeyboardKeyBG('X')">X</div>
+                        <div @click="setSelectedKey('C')" class="keyboardkey" :style="getKeyboardKeyBG('C')">C</div>
+                        <div @click="setSelectedKey('V')" class="keyboardkey" :style="getKeyboardKeyBG('V')">V</div>
+                        <div @click="setSelectedKey('B')" class="keyboardkey" :style="getKeyboardKeyBG('B')">B</div>
+                        <div @click="setSelectedKey('N')" class="keyboardkey" :style="getKeyboardKeyBG('N')">N</div>
+                        <div @click="setSelectedKey('M')" class="keyboardkey" :style="getKeyboardKeyBG('M')">M</div>
+                        <div @click="setSelectedKey('<')" class="keyboardkey" :style="getKeyboardKeyBG('<')"><</div>
+                        <div @click="setSelectedKey('>')" class="keyboardkey" :style="getKeyboardKeyBG('>')">></div>
+                        <div @click="setSelectedKey('?')" class="keyboardkey" :style="getKeyboardKeyBG('?')">?</div>
+                        <div @click="setSelectedKey('RIGHTSHIFT')" class="keyboardkey rightshift" :style="getKeyboardKeyBG('RIGHTSHIFT')">SHIFT</div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div @click="setSelectedKey('LEFTCTRL')" class="keyboardkey leftctrl" :style="getKeyboardKeyBG('LEFTCTRL')">CTRL</div>
+                        <div @click="setSelectedKey('LEFTALT')" class="keyboardkey alt"  :style="getKeyboardKeyBG('LEFTALT')">ALT</div>
+                        <div @click="setSelectedKey('RIGHTSHIFT')" class="keyboardkey" :style="getKeyboardKeyBG('RIGHTSHIFT')">
+                            <img style="width: 1.5rem; height: 1.5rem;" src="./assets/images/windows.png">
+                        </div>
+                        <div @click="setSelectedKey('SPACE')" class="keyboardkey space" :style="getKeyboardKeyBG('SPACE')">
+                            SPACE
+                        </div>
+                        <div @click="setSelectedKey('RIGHTALT')" class="keyboardkey altgr" :style="getKeyboardKeyBG('RIGHTALT')">ALTGR</div>
+                        <div @click="setSelectedKey('COPY')" class="keyboardkey" :style="getKeyboardKeyBG('COPY')">
+                            <img style="width: 1.4375rem;height: 1.875rem;" src="./assets/images/copy.png">
+                        </div>
+                        <div @click="setSelectedKey('RIGHTCTRL')" class="keyboardkey rightctrl" :style="getKeyboardKeyBG('RIGHTCTRL')">CTRL</div>
+                    </div>
+                </div>
+                <div :style="cssThemes[theme].keyboardShadow" class="keyboarddesccontainer">
+                    <template v-if="editMode">
+                        <template v-if="!createKeyInfo.selectedKey">
+                            {{locales.press_any_key_to_create_keybind}}
+                        </template>
+                        <div v-else-if="createKeyInfo.selectedKey && !createKeyInfo.selectedKeyCombination" class="keyboardCombinationContainer">
+                            <div class="keyboardCombinationWrapper">
+                                <div v-if="createKeyInfo.selectedKey.toLowerCase() == 'enter'" :style="getActiveEnterBG" class="enter enter-no-absolute">
+                                    <div class="enter-wrapper">
+                                        <p>ENTER</p>
+                                    </div>
+                                </div>
+                                <div v-else class="keyboardkey" :class="{[createKeyInfo.selectedKey.toLowerCase()]:true}" :style="getKeyboardActiveKeyBG()">{{createKeyInfo.selectedKey}}</div>
+                                <div class="selectedCommandLine"></div>
+                            </div>
+                            <div class="keyboardCombinationContainerDesc">
+                                <!-- <p>Enter the keybind description.</p> -->
+                                <input v-if="keybinds[createKeyInfo.selectedKey]" type="text" v-model="createKeyInfo.selectedKeyDesc" :placeholder="keybinds[createKeyInfo.selectedKey].desc">
+                                <input v-else type="text" v-model="createKeyInfo.selectedKeyDesc" :placeholder="locales.enter_keybind_desc">
+                            
+                            </div>
+                            <div class="keyboardCombinationWrapper">
+                                <div class="selectedCommandLine"></div>   
+                                <p v-html="locales.click_to_create_combination"></p>
+                            </div>
+                        </div>
+                        <div v-else-if="createKeyInfo.selectedKey && createKeyInfo.selectedKeyCombination" class="keyboardCombinationContainer">
+                            <div class="keyboardCombinationWrapper">
+                                <div v-if="createKeyInfo.selectedKey.toLowerCase() == 'enter'" :style="getActiveEnterBG" class="enter enter-no-absolute">
+                                    <div class="enter-wrapper">
+                                        <p>ENTER</p>
+                                    </div>
+                                </div>
+                                <div v-else class="keyboardkey" :class="{[createKeyInfo.selectedKey.toLowerCase()]:true}" :style="getKeyboardActiveKeyBG()">{{createKeyInfo.selectedKey}}</div>
+                                <div class="selectedCommandLine"></div>
+                            </div>
+                            <div class="keyboardCombinationContainerDesc">
+                                <!-- <p>Enter the keybind description.</p> -->
+                                <label class="keyboardInputPlaceholder">
+                                    <span v-if="createKeyInfo.selectedKeyDesc.length == 0 && keybinds[createKeyInfo.selectedKey]"> {{keybinds[createKeyInfo.selectedKey].desc}}
+                                        <span :style="cssThemes[theme].resumeText">({{locales.default}})</span></span>
+                                    <span v-else-if="createKeyInfo.selectedKeyDesc.length == 0">{{locales.enter_single_keybind_desc}}
+                                        <span :style="cssThemes[theme].resumeText">({{locales.default}})</span></span>
+
+                                    <input type="text" v-model="createKeyInfo.selectedKeyDesc" >
+                                </label>
+                                <label class="keyboardInputPlaceholder">
+                                    
+                                    <span v-if="createKeyInfo.selectedKeyCombinationDesc.length == 0 && keybinds[createKeyInfo.selectedKey] && keybinds[createKeyInfo.selectedKey].combinationKey == createKeyInfo.selectedKeyCombination">{{keybinds[createKeyInfo.selectedKey].combinationDesc}} <span :style="cssThemes[theme].resumeText">({{locales.with}} “ {{keybinds[createKeyInfo.selectedKey].combinationKey}} “)</span></span>
+                                    <span v-else-if="createKeyInfo.selectedKeyCombinationDesc.length == 0">{{locales.enter_combination_keybind_desc}} <span :style="cssThemes[theme].resumeText">({{locales.with}} “ {{createKeyInfo.selectedKeyCombination}} “)</span></span>
+                                    <input type="text" v-model="createKeyInfo.selectedKeyCombinationDesc" >
+                                </label>
+                            </div>
+                            <div class="keyboardCombinationWrapper">
+                                <div class="selectedCommandLine"></div>   
+                                <div v-if="createKeyInfo.selectedKeyCombination.toLowerCase() == 'enter'" :style="getActiveEnterBG" class="enter enter-no-absolute">
+                                    <div class="enter-wrapper">
+                                        <p>ENTER</p>
+                                    </div>
+                                </div>
+                                <div v-else class="keyboardkey" :class="{[createKeyInfo.selectedKeyCombination.toLowerCase()]:true}" :style="getKeyboardActiveKeyBG()">{{createKeyInfo.selectedKeyCombination}}</div>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <template v-if="!selectedKey">
+                          {{locales.press_any_key_to_display_keybind}}
+                        </template>
+                        <div v-if="keybinds[selectedKey] && keybinds[selectedKey].combinationKey" class="keyboardCombinationContainer">
+                            <div class="keyboardCombinationWrapper">
+                                <div v-if="selectedKey.toLowerCase() == 'enter'" :style="getEnterBG" class="enter enter-no-absolute">
+                                    <div class="enter-wrapper">
+                                        <p>ENTER</p>
+                                    </div>
+                                </div>
+                                <div v-else class="keyboardkey" :class="{[selectedKey.toLowerCase()]:true}" :style="getKeyboardKeyBG(selectedKey)">{{selectedKey}}</div>
+                                <div class="selectedCommandLine"></div>
+                            </div>
+                            <div class="keyboardCombinationContainerDesc">
+                                <p>{{keybinds[selectedKey].desc}} <span :style="cssThemes[theme].resumeText">({{locales.default}})</span></p>
+                                <p>{{keybinds[selectedKey].combinationDesc}} <span :style="cssThemes[theme].resumeText">({{locales.with}} “ {{keybinds[selectedKey].combinationKey}} “)</span></p>
+    
+                            </div>
+                            <div class="keyboardCombinationWrapper">
+                                <div class="selectedCommandLine"></div>   
+                                <div v-if="keybinds[selectedKey].combinationKey.toLowerCase() == 'enter'" :style="getActiveEnterBG" class="enter enter-no-absolute">
+                                    <div class="enter-wrapper">
+                                        <p>ENTER</p>
+                                    </div>
+                                </div>
+                                <div v-else class="keyboardkey" :class="{[keybinds[selectedKey].combinationKey.toLowerCase()]:true}" :style="getKeyboardActiveKeyBG()">{{keybinds[selectedKey].combinationKey}}</div>
+                            </div>
+                        </div>
+                        <div v-if="keybinds[selectedKey] && !keybinds[selectedKey].combinationKey" class="keyboardCombinationContainer">
+                            <div class="keyboardCombinationWrapper">
+                                <div v-if="selectedKey.toLowerCase() == 'enter'" :style="getEnterBG" class="enter enter-no-absolute">
+                                    <div class="enter-wrapper">
+                                        <p>ENTER</p>
+                                    </div>
+                                </div>
+                                <div v-else class="keyboardkey" :class="{[selectedKey.toLowerCase()]:true}" :style="getKeyboardKeyBG(selectedKey)">{{selectedKey}}</div>
+                                <div class="selectedCommandLine"></div>
+                            </div>
+                            <div class="keyboardCombinationContainerDesc">
+                                <p>{{keybinds[selectedKey].desc}}</p>
+                            </div>
+                            <div class="keyboardCombinationWrapper">
+                                <div class="selectedCommandLine"></div>   
+                                <p v-html="locales.no_combination"></p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </div>
+    <div class="bottom">
+        <img class="line" src="./assets/images/line.png">
+        <div @click="setActivePage('main')" class="resumebutton">
+            <p :style="cssThemes[theme].resumeText" :class="{'resumeTextHover':hoverResume}">{{locales.go_back.toUpperCase()}}</p>
+            <p :style="{'font-size': hoverResume ? '3.9rem' : '3.25rem'}" @mouseover="hoverResume = true"
+                @mouseleave="hoverResume = false">{{locales.go_back.toUpperCase()}}</p>
+        </div>
+        <img class="line" src="./assets/images/line.png">
+    </div>
+</div>

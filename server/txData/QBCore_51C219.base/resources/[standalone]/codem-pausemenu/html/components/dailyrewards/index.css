@@ -1,0 +1,438 @@
+.dailyrewards {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.dailyrewards-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.leftsmoke {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    mix-blend-mode: color-dodge;
+    z-index: 65;
+}
+
+.rightsmoke {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    mix-blend-mode: color-dodge;
+    z-index: 65;
+}
+
+.dailyRewardsBox {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 60rem;
+    height: 100%;
+    position: absolute;
+    left: 50.7%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dailyrewardstheme-overlay {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 39.125rem;
+    height: 48rem;
+}
+
+.dailyrewarditemimage {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.dailyrewarditemtext2-anim{
+    animation: fadeIn 2s;
+}
+
+.dailyrewarditemclaimedtext{
+    position: absolute;
+    left: 50.7%;
+    top: 44.4%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    font-family: Gilroy-BlackItalic;
+    font-size: 6rem;
+
+}
+
+.dailyrewarditemtext2 {
+    color: black;
+    -webkit-text-fill-color: transparent;
+    /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.34);
+    font-family: Gilroy-BlackItalic;
+    font-size: 6rem;
+
+    position: absolute;
+    left: 50.7%;
+    top: 44.4%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+}
+
+.claimdailyrewardtext {
+    position: absolute;
+    left: 50%;
+    bottom: 10.5rem;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.40);
+    z-index: 33;
+    font-family: Gilroy-SemiBoldItalic;
+    font-size: 1.25rem;
+
+}
+
+
+.claimbutton {
+    position: absolute;
+    left: 48%;
+    bottom: 5rem;
+    transform: translateX(-50%);
+    z-index: 88;
+}
+
+@keyframes claimbutton {
+    0%{
+        opacity: 0;
+        left: 55%;
+    }
+    100%{
+        opacity: 1;
+        left: 48%;
+    }
+}
+
+
+.claimbutton-anim{
+    position: absolute;
+    left: 48%;
+    bottom: 5rem;
+    transform: translateX(-50%);
+    z-index: 88;
+    animation: claimbutton 2s;
+}
+
+
+.claimbuttonwrapper {
+    position: relative;
+}
+
+.claimbuttonwrapper p {
+    text-shadow: 0px 0px 68px rgba(255, 255, 255, 0.25);
+    font-family: Gilroy-BlackItalic;
+    font-size: 3.25rem;
+    cursor: pointer;
+    transition: all .2s ease;
+    position: absolute;
+    transform: translateY(-60%) translateX(-35%);
+}
+
+.claimbuttonwrapper p:first-child {
+    font-size: 3.25rem;
+    left: .1rem;
+    top: .1rem;
+}
+
+.claimbuttonwrapper p:last-child {
+    color: #FFF;
+}
+
+.dailyrewardsdaycounter {
+    position: absolute;
+    left: 51%;
+    transform: translateX(-50%);
+    top: 10rem;
+    color: #FFF;
+    font-family: Gilroy-BlackItalic;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 99.5%;
+}
+
+.dailyrewardsleftarrows {
+    position: absolute;
+    left: -1.1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    z-index: 33;
+}
+
+.dailyrewardsrightarrows {
+    position: absolute;
+    right: -2.5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    z-index: 33;
+}
+
+.dailyrewardsrightarrows img {
+    width: 18rem;
+    height: 100%;
+    transition: all .4s ease;
+    transform: rotate(180deg);
+}
+
+.dailyrewardsleftarrows img {
+    width: 18rem;
+    height: 100%;
+    transition: all .4s ease;
+}
+
+
+.dailyrewardsleftarrows img:nth-child(1) {
+    position: relative;
+    right: 2rem;
+}
+
+.dailyrewardsleftarrows img:nth-child(2) {
+    position: relative;
+    right: 12rem;
+
+}
+
+.dailyrewardsleftarrows img:nth-child(3) {
+    position: relative;
+    right: 23rem;
+
+}
+
+.dailyrewardsleftarrows img:nth-child(4) {
+    position: relative;
+    right: 34rem;
+
+}
+
+.dailyrewardsleftarrows img:nth-child(5) {
+    position: relative;
+    right: 45rem;
+
+}
+
+
+
+
+.dailyrewardsrightarrows img:nth-child(1) {
+    position: relative;
+    left: 45rem;
+}
+
+.dailyrewardsrightarrows img:nth-child(2) {
+    position: relative;
+    left: 34rem;
+
+}
+
+.dailyrewardsrightarrows img:nth-child(3) {
+    position: relative;
+    left: 23rem;
+
+}
+
+.dailyrewardsrightarrows img:nth-child(4) {
+    position: relative;
+    left: 12rem;
+
+}
+
+.dailyrewardsrightarrows img:nth-child(5) {
+    position: relative;
+    left: 2rem;
+
+}
+
+.dailyrewardgoback {
+    position: absolute;
+    left: 3rem;
+    top: 7.5rem;
+    cursor: pointer;
+    z-index: 46;
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+    transition: all .2s ease;
+}
+
+
+.dailyrewardgoback p {
+    transition: all .2s ease;
+    font-family: Gilroy-SemiBoldItalic;
+    font-size: 1.5rem;
+}
+
+.dailyrewardgoback svg {
+    transition: all .2s ease;
+
+}
+
+.textwhitegoback {
+    color: white !important;
+}
+
+.timedailyleft {
+    position: absolute;
+    right: 3rem;
+    top: 7.5rem;
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+    z-index: 44;
+
+}
+
+.timedailyleft p {
+    color: #FFF;
+
+    font-family: Gilroy-SemiBoldItalic;
+    font-size: 1.5rem;
+
+}
+
+.daily-items-box {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 5rem;
+    padding: 0 2rem;
+    z-index: 66;
+
+}
+
+.daily-item-claimed-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    font-family: Gilroy-SemiBold;
+    font-size: 0.875rem;
+    transform: rotate(-15deg) translate(-50%, -50%);
+}
+
+.daily-item-box {
+    width: 7.5rem;
+    height: 8.96238rem;
+    background-image: url(../../assets/images/dailyawarditembox.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    transition: all .2s ease;
+    cursor: pointer;
+}
+
+
+
+.daily-items-flex {
+    display: flex;
+    align-items: center;
+    column-gap: 2rem;
+    position: relative;
+}
+
+.daily-item-line {
+    position: absolute;
+    left: 0;
+    bottom: -1.5rem;
+    width: 100%;
+}
+
+.daily-items-box-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.daily-item-day {
+    color: #FFF;
+
+    font-family: Gilroy-SemiBold;
+    font-size: 0.875rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: .75rem;
+}
+
+.daily-item-name {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1.65rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    font-family: Gilroy-SemiBold;
+    font-size: 0.875rem;
+    transition: all .2s ease;
+    border-bottom-left-radius: .45rem;
+    border-bottom-right-radius: .45rem;
+
+}
+
+.daily-item-image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 5.375rem;
+    height: 3.0625rem;
+    object-fit: contain;
+}
+
+.daily-item-left-arrow {
+    position: absolute;
+    left: -1.7rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0.8715rem;
+    height: 1.54688rem;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.daily-item-right-arrow {
+    position: absolute;
+    right: -1.7rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0.8715rem;
+    height: 1.54688rem;
+    object-fit: cover;
+    cursor: pointer;
+
+}

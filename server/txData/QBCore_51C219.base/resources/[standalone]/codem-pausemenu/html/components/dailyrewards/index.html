@@ -1,0 +1,74 @@
+<div class="dailyrewards" v-if="dailyAwardData">
+    <img src="./assets/images/leftsmoke.png" class="leftsmoke">
+    <img src="./assets/images/rightsmoke.png" class="rightsmoke">
+  
+    <div @click="setActivePage('main')" :style="{transform : hoverGoBack ? 'scale(1.15)' : 'scale(1.0)'}"
+        class="dailyrewardgoback" @mouseover="hoverGoBack = true" @mouseleave="hoverGoBack = false">
+   
+        <inlinesvg src="./assets/images/left-arrow.svg" :fill="hoverGoBack ? cssThemes[theme].backSvgHoverColor : 'white'"></inlinesvg>
+        <p :style="cssThemes[theme].resumeText" :class="{'textwhitegoback' : !hoverGoBack}">{{locales.go_back}}</p>
+    </div>
+    <div class="timedailyleft">
+        <p>{{getRemainTime}} {{locales.remained}}</p>
+        <img src="./assets/images/timedailyicon.png">
+    </div>
+    <div class="dailyrewardsleftarrows">
+        <img src="./assets/images/dailyrewardleftarrow.png" :style="{opacity : leftArrowOpacity[i.toString()]}"
+            v-for="i in 5">
+    </div>
+    <div class="dailyrewardsrightarrows">
+        <img src="./assets/images/dailyrewardleftarrow.png" :style="{opacity : rightArrowOpacity[i.toString()]}"
+            v-for="i in 5">
+    </div>
+    <img class="dailyrewards-overlay" src="./assets/images/dailyrewardsoverlay.png">
+    <p class="dailyrewardsdaycounter">{{locales.day}} {{dailyAwardDayCounter}}</p>
+    <div :style="dailyRewardsBoxBG" class="dailyRewardsBox"></div>
+    <img class="dailyrewardstheme-overlay" :src="'./assets/images/themes/'+theme+'/dailyrewardsoverlay.png'">
+    <p v-if="!checkAlreadyClaimed" class="dailyrewarditemtext2">{{getCurrentDayItem?.label}}</p>
+    <p v-else :style="cssThemes[theme].resumeText"  class="dailyrewarditemclaimedtext dailyrewarditemtext2-anim">{{locales.claimed}}</p>
+    
+    <img class="dailyrewarditemimage" :src="'./assets/item_images/'+getCurrentDayItem?.image">
+    <p class="claimdailyrewardtext">{{locales.claim_daily_reward}}</p>
+    <div class="claimbutton" v-if="!checkAlreadyClaimed">
+        <div class="claimbuttonwrapper" @click="claimItem">
+            <p :style="cssThemes[theme].resumeText" :class="{'resumeTextHover':hoverClaim}">{{locales.claim}}</p>
+            <p :style="{'font-size': hoverClaim ? '3.9rem' : '3.25rem'}" @mouseover="hoverClaim = true"
+                @mouseleave="hoverClaim = false">{{ locales.claim}}</p>
+        </div>
+    </div>
+    <div class="claimbutton-anim" v-else>
+        <div class="claimbuttonwrapper" @click="claimItem">
+            <p :style="cssThemes[theme].resumeText" class="resumeTextHover">{{locales.claimed}}</p>
+        </div>
+    </div>
+    <div class="daily-items-box">
+        <div class="daily-items-box-wrapper">
+            <img @click="prevDailyItemPage()" class="daily-item-left-arrow" src="./assets/images/left-arrow.png">
+            <img @click="nextDailyItemPage()" class="daily-item-right-arrow" src="./assets/images/right-arrow.png">
+
+            <div class="daily-items-flex">
+                <div class="daily-item-box" :style="dailyRewardItemBoxLeftImg(i)" @mouseover="hoverItemBoxLeft[i] = true" @mouseleave="hoverItemBoxLeft[i] = false" v-for="(item, i) in dailyAwardItems" v-show="shouldShowLeftItem(i)">
+                    <img class="daily-item-image" :src="'./assets/item_images/'+item?.image">
+                    <p class="daily-item-day">{{locales.day}} {{i + 1}}</p>
+                    <div :style="dailyRewardItemBoxNameLeftColor(i)" class="daily-item-name">{{item?.label}}</div>
+                    <p class="daily-item-claimed-text" v-if="checkAlreadyClaimedByIndex(i + 1)" :style="cssThemes[theme].resumeText">{{locales.claimed}}</p>
+                    <p class="daily-item-claimed-text" v-else-if="!checkAlreadyClaimedByIndex(i + 1) && dailyAwardDayCounter > (i + 1)" :style="cssThemes[theme].resumeText">{{locales.expired}}</p>
+
+                </div>
+                <img class="daily-item-line" src="./assets/images/line.png">
+            </div>
+            <div class="daily-items-flex">
+                <div class="daily-item-box" :style="dailyRewardItemBoxRightImg(i)" @mouseover="hoverItemBoxRight[i] = true" @mouseleave="hoverItemBoxRight[i] = false"  v-for="(item, i) in dailyAwardItems" v-show="shouldShowRightItem(i)">
+                    <img class="daily-item-image" :src="'./assets/item_images/'+item?.image">
+                    <p class="daily-item-day">{{locales.day}} {{i + 1}}</p>
+                    <div :style="dailyRewardItemBoxNameRightColor(i)" class="daily-item-name">{{item?.label}}</div>
+                    <p class="daily-item-claimed-text" v-if="checkAlreadyClaimedByIndex(i + 1)" :style="cssThemes[theme].resumeText">{{locales.claimed}}</p>
+                    <p class="daily-item-claimed-text" v-else-if="!checkAlreadyClaimedByIndex(i + 1) && dailyAwardDayCounter > (i + 1)" :style="cssThemes[theme].resumeText">{{locales.expired}}</p>
+                
+                </div>
+                <img class="daily-item-line" src="./assets/images/line.png">
+
+            </div>
+        </div>
+    </div>
+</div>

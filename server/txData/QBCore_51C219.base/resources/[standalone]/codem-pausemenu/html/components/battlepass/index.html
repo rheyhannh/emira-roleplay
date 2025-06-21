@@ -1,0 +1,107 @@
+
+<div class="battlepass">
+
+    <div @click="showGetBattlepass=false" class="getbattlepassoverlay" v-if="showGetBattlepass"></div>
+    <div v-if="showGetBattlepass" class="getbattlepasscontainer">
+        <div class="getbattlepasswrapper">
+            <h1 class="getBattlepassHeader" v-html="locales.made_payment"></h1>
+            <div @click="verifyTbxId" class="getbattlepassButton battlepassButtonAbsolute" :style="getbattlepassBG">
+                <p v-html="locales.unlock_battlepass"></p>
+            </div>
+            <p class="yourtbxidtext">{{locales.tbx_id}}</p>
+            <input v-model="tbxId" class="tebexidinput" type="text" :placeholder="locales.provide_tbx_id">
+            <p class="getbattlepassfromstoretext" v-html="locales.get_battlepass"></p>  
+        </div>
+    </div>
+    <div class="battlepass-left">
+        <div @click="setActivePage('main')" :style="{transform : hoverGoBack ? 'scale(1.15)' : 'scale(1.0)'}"
+            class="dailyrewardgoback" @mouseover="hoverGoBack = true" @mouseleave="hoverGoBack = false">
+
+            <inlinesvg src="./assets/images/left-arrow.svg"
+                :fill="hoverGoBack ? cssThemes[theme].backSvgHoverColor : 'white'"></inlinesvg>
+            <p :style="cssThemes[theme].resumeText" :class="{'textwhitegoback' : !hoverGoBack}">{{locales.go_back}}</p>
+        </div>
+        <div class="battlepass-items">
+            <div class="battlepass-items-wrapper">
+                <div @click="selectItem(i)" class="daily-item-box" :style="dailyRewardItemBoxRightImg(i.level)"
+                    @mouseover="hoverItemBoxRight[i.level] = true" @mouseleave="hoverItemBoxRight[i.level] = false"
+                    v-for="i in battlepassItems">
+                    <img class="daily-item-image" :src="'./assets/item_images/'+i?.image">
+                    <p class="daily-item-day">{{locales.level}} {{i.level}}</p>
+                    <p class="daily-item-claimed-text" v-if="this.battlepassData.claimedLevels.includes(i.level)" :style="cssThemes[theme].resumeText">{{locales.claimed}}</p>
+
+                    <div :style="dailyRewardItemBoxNameRightColor(i.level)" class="daily-item-name">{{i?.label}}</div>
+                </div>
+
+            </div>
+            <img class="battlepass-line" src="./assets/images/line.png">
+
+        </div>
+    </div>
+    <div class="battlepassclaimbuttoncontainer">
+        <p class="claimbattlepasstext" style="position: static;transform: translate(30px);">{{locales.claim_free_battlepass}}</p>
+        <div class="claimbutton" style="position: static; transform: translate(0);">
+            <div class="claimbuttonwrapper" @click="ClaimBattlepassItem">
+                <p :style="cssThemes[theme].resumeText" :class="{'resumeTextHover':hoverClaim}">{{locales.claim}}</p>
+                <p :style="{'font-size': hoverClaim ? '3.9rem' : '3.25rem'}" @mouseover="hoverClaim = true"
+                    @mouseleave="hoverClaim = false">{{locales.claim}}</p>
+    
+            </div>
+        </div>
+    </div>
+    <div class="battelpassfreetext">
+        <div class="battelpassfreetextwrapper">
+            <p>{{selectedItem ? selectedItem.premium ? locales.premium : locales.free : getBattlepassCurrentLevelItem.premium ? locales.premium : locales.free  }}</p>
+            <p>{{selectedItem ? selectedItem.premium ? locales.premium : locales.free : getBattlepassCurrentLevelItem.premium ? locales.premium : locales.free  }}</p>
+        </div>
+    </div>
+    <div class="battlepassitemcontainer">
+        <div class="battlepassitemcontainerwrapper">
+            <p class="battlepassitemtext">{{selectedItem ? selectedItem.label : getBattlepassCurrentLevelItem?.label}}</p>
+            <img class="battlepassitemimage" :src="getBattlepassItemImage">
+        </div>
+    </div>
+    <div class="timedailyleft">
+        <p>{{battlePassRemainDay}} {{locales.day_remained}}</p>
+        <img src="./assets/images/timedailyicon.png">
+    </div>
+    <p class="battlepassmissionsheader" v-html="locales.battlepass_missions"></p>
+    <div class="battlepassright">
+        <div class="battlepassrightwrapper">
+            <div class="battlepassprogressioncontainer">
+                <p :style="cssThemes[theme].dailyRewardText">{{locales.battlepass}}</p>
+                <div id="battlepassprogress">
+                    <p :style="cssThemes[theme].dailyRewardText">Lv.{{battlepassData.level}}</p>
+                    <p :style="cssThemes[theme].battlepassLevelText">{{battlepassData.xp}}/{{battlepassItems[battlepassData.level - 1].requiredXP }}BP</p>
+                </div>
+                <p :style="cssThemes[theme].dailyRewardText">{{locales.progression}}</p>
+            </div>
+            <div class="battlepassmissionscontainer" style="margin-top: 2rem;">
+                <div class="battlepassmission" v-for="(mission, index) in battlepassData.missions">
+                    <div class="battlepassmissionflex">
+                        <img class="battlepassmissionicon" src="./assets/images/battlepassmissionicon.png">
+                        <div class="battlepassmissioninfo">
+                            <h1 :style="{'text-decoration': mission.completed ? 'line-through' : 'none'}">{{getBattlepassMissionById(mission.id).desc}}</h1>
+                            <p  :style="{'text-decoration': mission.completed ? 'line-through' : 'none'}">{{locales.complete_mission}} <span>{{getBattlepassMissionById(mission.id).xpAmount}}BP</span></p>
+                        </div>
+                    </div>
+                    <component height="98%" viewBox="0 0 44 93" fill="none" is="svg">
+                        <path
+                            d="M40 89C30.9724 87.3031 22.6873 82.7205 16.3119 75.8977C9.93642 69.0749 5.79206 60.3559 4.46265 50.9691C3.13324 41.5823 4.68579 32.0007 8.90157 23.5744C13.1173 15.1482 19.7839 8.30181 27.9619 4"
+                            stroke="white" stroke-opacity="0.24" stroke-width="8" stroke-linecap="round" />
+                        <path
+                            :id="'battlepassmissionprogress'+index"
+                            d="M40 89C30.9724 87.3031 22.6873 82.7205 16.3119 75.8977C9.93642 69.0749 5.79206 60.3559 4.46265 50.9691C3.13324 41.5823 4.68579 32.0007 8.90157 23.5744C13.1173 15.1482 19.7839 8.30181 27.9619 4"
+                            stroke="white" stroke-width="8" stroke-linecap="round" />
+                    </component>
+                </div>
+              
+              
+            </div>
+            <div @click="showGetBattlepass=true" class="getbattlepassButton" :style="getbattlepassBG">
+                <p v-html="locales.get_battlepass_now"></p>
+            </div>
+            <img src="./assets/images/line.png" class="battlepassline">
+        </div>
+    </div>
+</div>
