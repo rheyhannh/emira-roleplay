@@ -26,10 +26,10 @@ Config.Vehicleshops = {
             Enable = true,
             Sprite = 227,
             Scale = 0.8,
-            Color = 0
+            Color = 0 -- ganti warna emas
         },
         SpawnCoords = vector4(-13.99, -1093.8, 26.05, 160.17), -- The place to spawn when you buy the vehicle
-        ShopOpenCoords = vector3(-33.21, -1103.69, 26.42), -- Coordinate to open Vehicleshop menu
+        ShopOpenCoords = vector4(-56.7255, -1097.0151, 26.4223, 114.0550), -- Coordinate to open Vehicleshop menu
         BossmenuCoords = vector3(-32.04, -1114.23, 26.42), -- Coordinate to open bossmenu
         CamSettings = {
             VehiclePos = vector4(797.25, -3000.18, -69.63, 242.65), -- When looking at vehicles, the coordinates of the vehicle | Preview mode
