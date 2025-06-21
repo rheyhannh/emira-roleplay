@@ -33,7 +33,7 @@ Config.Shops = {
         },
         ['Job'] = 'none',                                            -- Name of job or none
         ['ShopLabel'] = 'Premium Deluxe Motorsport',                 -- Blip name
-        ['showBlip'] = true,                                         -- true or false
+        ['showBlip'] = false,                                         -- true or false
         ['blipSprite'] = 326,                                        -- Blip sprite
         ['blipColor'] = 3,                                           -- Blip color
         ['TestDriveTimeLimit'] = 0.5,                                -- Time in minutes until the vehicle gets deleted
