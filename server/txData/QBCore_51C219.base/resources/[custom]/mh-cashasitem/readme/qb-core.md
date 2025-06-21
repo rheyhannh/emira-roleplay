@@ -88,7 +88,7 @@ function self.Functions.RemoveMoney(moneytype, amount, reason)
         end
         --TriggerClientEvent('hud:client:OnMoneyChange', self.PlayerData.source, moneytype, amount, true)
         if moneytype == 'bank' then
-            TriggerClientEvent('qb-phone:client:RemoveBankMoney', self.PlayerData.source, amount)
+            TriggerClientEvent('jpr-phonesystem:client:RemoveBankMoney', self.PlayerData.source, amount)
         end
         TriggerClientEvent('QBCore:Client:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'remove', reason)
         TriggerEvent('QBCore:Server:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'remove', reason)

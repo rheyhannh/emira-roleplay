@@ -1,7 +1,7 @@
 Config.DiscordBotToken = '' -- Discord bot token (For profile picutre)
 Config.DefaultProfilePicture = 'https://cdn.discordapp.com/attachments/1187803888271757444/1192875266855419994/Frame_81_3.png?ex=66a91c2a&is=66a7caaa&hm=c48a61f9199cc8d294b525160e8cf5cb53673805a6a7b90df43074513260b4a5&' -- URL | The default profile image to use when Config.DiscordBotToken is empty.
 Config.BucketID = 0 -- Default | You don't need to touch here.
-Config.PhoneMailOffline = 'qb-phone:server:sendNewEventMail' -- Email event for offline players
+Config.PhoneMailOffline = 'jpr-phonesystem:server:sendNewEventMail' -- Email event for offline players
 Config.DefaultPerms = {
     { -- Dont remove this table.
         name = 'owner', -- Dont touch

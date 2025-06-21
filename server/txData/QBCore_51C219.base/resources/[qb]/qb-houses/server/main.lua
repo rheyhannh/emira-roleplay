@@ -507,7 +507,7 @@ QBCore.Functions.CreateCallback('qb-houses:server:getHouseKeyHolders', function(
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:TransferCid', function(_, cb, NewCid, house)
+QBCore.Functions.CreateCallback('jpr-phonesystem:server:TransferCid', function(_, cb, NewCid, house)
     local result = MySQL.query.await('SELECT * FROM players WHERE citizenid = ?', { NewCid })
     if result[1] then
         local HouseName = house.name
@@ -578,7 +578,7 @@ QBCore.Functions.CreateCallback('qb-houses:server:getSavedOutfits', function(sou
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:GetPlayerHouses', function(source, cb)
+QBCore.Functions.CreateCallback('jpr-phonesystem:server:GetPlayerHouses', function(source, cb)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local MyHouses = {}
@@ -646,7 +646,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetPlayerHouses', function(sour
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:GetHouseKeys', function(source, cb)
+QBCore.Functions.CreateCallback('jpr-phonesystem:server:GetHouseKeys', function(source, cb)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local MyKeys = {}
@@ -673,7 +673,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetHouseKeys', function(source,
     cb(MyKeys)
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:MeosGetPlayerHouses', function(_, cb, input)
+QBCore.Functions.CreateCallback('jpr-phonesystem:server:MeosGetPlayerHouses', function(_, cb, input)
     if input then
         local search = escape_sqli(input)
         local searchData = {}

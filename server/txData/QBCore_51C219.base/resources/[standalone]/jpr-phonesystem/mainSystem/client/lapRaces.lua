@@ -105,7 +105,7 @@ RegisterNUICallback('RaceDistanceCheck', function(data, cb)
     end, data.RaceId)
 end)
 
-RegisterNetEvent('qb-phone:client:UpdateLapraces', function()
+RegisterNetEvent('jpr-phonesystem:client:UpdateLapraces', function()
     SendNUIMessage({
         action = 'UpdateRacingApp',
     })

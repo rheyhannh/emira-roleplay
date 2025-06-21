@@ -11,7 +11,7 @@ Config.PlateChange = true -- If true, players can change the plate
 Config.PlateChangePrice = 1000 -- Plate cost
 
 Config.DefaultGarage = 'codem-garage' -- The place to be written in the 'garage' section of the database when the vehicle is purchased. 
-Config.PhoneMailOnline = 'qb-phone:server:sendNewMail' -- Event to send mail to active players. Customize it for your phone.
+Config.PhoneMailOnline = 'jpr-phonesystem:server:sendNewMail' -- Event to send mail to active players. Customize it for your phone.
 
 Config.CheckSalaryStatus = { -- This checks the salary every day at 12 o'clock and the players get paid.
     Hour = 12,
