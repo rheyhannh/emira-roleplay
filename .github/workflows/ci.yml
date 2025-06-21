@@ -21,14 +21,32 @@ jobs:
           local-dir: ./server/
           server-dir: ./server/
 
-  rcon:
+  restart:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
-      - name: 🔂 Restarting server
-        uses: Plagiatus/RCON-Action@v0.2
-        with:
-          server: ${{ secrets.FIVEM_RCON_HOST }}
-          port: ${{ secrets.FIVEM_RCON_PORT }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          commands: '["restart"]'
+      - name: 🔂 Login to txAdmin and restart server
+        run: |
+          # Login and capture response headers and body
+          login_response=$(curl -s -D headers.txt -X POST "http://${TXADMIN_HOST}:${TXADMIN_PORT}/auth/password" \
+            -H "Content-Type: application/json" \
+            -d "{\"username\": \"${TXADMIN_USER}\", \"password\": \"${TXADMIN_PASSWORD}\"}")
+
+          # Extract CSRF token from JSON response
+          csrfToken=$(echo "$login_response" | jq -r '.csrfToken')
+
+          # Extract session cookie from response headers
+          sessionCookie=$(grep -i 'Set-Cookie' headers.txt | grep "tx:${TXADMIN_SERVER_ID}" | sed 's/Set-Cookie: //' | cut -d';' -f1)
+
+          # Send authenticated POST request to /fxserver/controls
+          curl -s -X POST "http://${TXADMIN_HOST}:${TXADMIN_PORT}/fxserver/controls" \
+            -H "Content-Type: application/json" \
+            -H "x-txadmin-csrftoken: ${csrfToken}" \
+            -H "Cookie: ${sessionCookie}" \
+            -d '{"action": "restart"}'
+        env:
+          TXADMIN_HOST: ${{ secrets.TXADMIN_HOST }}
+          TXADMIN_PORT: ${{ secrets.TXADMIN_PORT }}
+          TXADMIN_USER: ${{ secrets.TXADMIN_USER }}
+          TXADMIN_PASSWORD: ${{ secrets.TXADMIN_PASSWORD }}
+          TXADMIN_SERVER_ID: ${{ secrets.TXADMIN_SERVER_ID }}
