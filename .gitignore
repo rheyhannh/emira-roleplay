@@ -19,3 +19,6 @@ builders/
 # sensitive data
 /server/txData/admins.json
 /server/txData/QBCore_51C219.base/server.cfg
+
+# misc
+/.experimental/
