@@ -222,11 +222,16 @@ Config.SpotifyMusics = { -- max 10 youtube playlists, just 50 videos per playlis
     'https://www.youtube.com/watch?v=CkMgqjV_gSI&list=RDEMZNIDPBkgDq0tlZcEP8ZtbA&start_radio=1',
     'https://www.youtube.com/watch?v=ngORmvyvAaI&list=RDngORmvyvAaI&start_radio=1',
     'https://www.youtube.com/watch?v=qFLhGq0060w&list=RDqFLhGq0060w&start_radio=1',
-    'https://www.youtube.com/watch?v=s6TtwR2Dbjg&list=RDs6TtwR2Dbjg&start_radio=1'
+    'https://www.youtube.com/watch?v=s6TtwR2Dbjg&list=RDs6TtwR2Dbjg&start_radio=1',
+    'https://www.youtube.com/watch?v=V9PVRfjEBTI&list=RDV9PVRfjEBTI&start_radio=1',
+    'https://www.youtube.com/watch?v=IfrmT6cqdU4&list=RDMMIfrmT6cqdU4&start_radio=1'
+
 }
 
 Config.YoutubeVideos = { -- max 10 youtube playlists, just 50 videos per playlist will be loaded, that means max amount of music on phone is 500 ( can be custom playlists too )
     'https://www.youtube.com/watch?v=pPiKa_m9dq0&list=PL2CSkAwAXsy0AFHZDvTrIIGuv45lHmzXb',
+    'https://www.youtube.com/watch?v=V9PVRfjEBTI&list=RDV9PVRfjEBTI&start_radio=1',
+    'https://www.youtube.com/watch?v=IfrmT6cqdU4&list=RDMMIfrmT6cqdU4&start_radio=1'
 }
 
 Config.HouseScriptName = "qb-houses"
