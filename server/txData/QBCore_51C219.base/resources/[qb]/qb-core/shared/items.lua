@@ -329,7 +329,29 @@ QBShared.Items = {
     walkstick                    = { name = 'walkstick', label = 'Walking Stick', weight = 1000, type = 'item', image = 'walkstick.png', unique = false, useable = true, shouldClose = true, description = 'Walking stick for ya\'ll grannies out there.. HAHA' },
 
     -- Communication
-    phone                        = { name = 'phone', label = 'Phone', weight = 700, type = 'item', image = 'phone.png', unique = true, useable = false, shouldClose = false, description = 'Neat phone ya got there' },
+    -- phone                        = { name = 'phone', label = 'Phone', weight = 700, type = 'item', image = 'phone.png', unique = true, useable = false, shouldClose = false, description = 'Neat phone ya got there' },
+    phone                        = { name = 'phone', label = 'Phone', weight = 700, type = 'item', image = 'phone.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Neat phone ya got there' },
+    phone_white                  = { name = 'phone_white', label = 'White Phone', weight = 700, type = 'item', image = 'phone_white.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Neat white phone ya got there' },
+    phone_gold                   = { name = 'phone_gold', label = 'Gold Phone', weight = 700, type = 'item', image = 'phone_gold.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Neat gold phone ya got there' },
+    phone_red                    = { name = 'phone_red', label = 'Red Phone', weight = 700, type = 'item', image = 'phone_red.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Neat red phone ya got there' },
+    phone_blue                   = { name = 'phone_blue', label = 'Blue Phone', weight = 700, type = 'item', image = 'phone_blue.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Neat blue phone ya got there' },
+    phone_green                  = { name = 'phone_green', label = 'Green Phone', weight = 700, type = 'item', image = 'phone_green.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Neat green phone ya got there' },
+    phone_pink                   = { name = 'phone_pink', label = 'Pink Phone', weight = 700, type = 'item', image = 'phone_pink.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Neat pink phone ya got there' },
+    phone_green_light            = { name = 'phone_green_light', label = 'Green Light Phone', weight = 700, type = 'item', image = 'phone_green_light.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Neat green light phone ya got there' },
+    phone_purple                 = { name = 'phone_purple', label = 'Purple Phone', weight = 700, type = 'item', image = 'phone_purple.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'A neat purple phone' },
+    phone_purple_deep            = { name = 'phone_purple_deep', label = 'Deep Purple Phone', weight = 700, type = 'item', image = 'phone_purple_deep.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'A phone with a deep purple color' },
+    powerbank                    = { name = 'powerbank', label = 'Powerbank', weight = 200, type = 'item', image = 'powerbank.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'A good way to get battery' },
+    phone_case_1                 = { name = 'phone_case_1', label = 'Phone Case 1', weight = 150, type = 'item', image = 'phone_case_1.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Stylish case for your phone' },
+    phone_case_2                 = { name = 'phone_case_2', label = 'Phone Case 2', weight = 150, type = 'item', image = 'phone_case_2.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Stylish case for your phone' },
+    phone_case_3                 = { name = 'phone_case_3', label = 'Phone Case 3', weight = 150, type = 'item', image = 'phone_case_3.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Stylish case for your phone' },
+    phone_case_4                 = { name = 'phone_case_4', label = 'Phone Case 4', weight = 150, type = 'item', image = 'phone_case_4.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Stylish case for your phone' },
+    phone_case_5                 = { name = 'phone_case_5', label = 'Phone Case 5', weight = 150, type = 'item', image = 'phone_case_5.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Stylish case for your phone' },
+    phone_case_6                 = { name = 'phone_case_6', label = 'Phone Case 6', weight = 150, type = 'item', image = 'phone_case_6.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Stylish case for your phone' },
+    phone_case_7                 = { name = 'phone_case_7', label = 'Phone Case 7', weight = 150, type = 'item', image = 'phone_case_7.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Stylish case for your phone' },
+    phone_case_8                 = { name = 'phone_case_8', label = 'Phone Case 8', weight = 150, type = 'item', image = 'phone_case_8.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Stylish case for your phone' },
+    phone_case_9                 = { name = 'phone_case_9', label = 'Phone Case 9', weight = 150, type = 'item', image = 'phone_case_9.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Stylish case for your phone' },
+    phone_case_10                = { name = 'phone_case_10', label = 'Phone Case 10', weight = 150, type = 'item', image = 'phone_case_10.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Stylish case for your phone' },
+    phone_no_case                = { name = 'phone_no_case', label = 'Phone No Case', weight = 700, type = 'item', image = 'phone_no_case.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'A phone without a case' },
     radio                        = { name = 'radio', label = 'Radio', weight = 2000, type = 'item', image = 'radio.png', unique = true, useable = true, shouldClose = true, description = 'You can communicate with this through a signal' },
     iphone                       = { name = 'iphone', label = 'iPhone', weight = 1000, type = 'item', image = 'iphone.png', unique = false, useable = false, shouldClose = true, description = 'Very expensive phone' },
     samsungphone                 = { name = 'samsungphone', label = 'Samsung S10', weight = 1000, type = 'item', image = 'samsungphone.png', unique = false, useable = false, shouldClose = true, description = 'Very expensive phone' },
@@ -384,12 +406,12 @@ QBShared.Items = {
     newsbmic                     = { name = 'newsbmic', label = 'Boom Microphone', weight = 100, type = 'item', image = 'newsbmic.png', unique = true, useable = true, shouldClose = true, description = 'A Useable BoomMic' },
 
     -- Crafting table's
-    item_bench = {name = "item_bench", label = "Workbench", weight = 15000, type = "item", image = "workbench.png", unique = true, useable = true, shouldClose = false, combinable = nil, description = "A workbench to craft items."},
-    attachment_bench = {name = "attachment_bench", label = "Attachment Workbench", weight = 15000, type = "item", image = "attworkbench.png", unique = true, useable = true, shouldClose = false, combinable = nil, description = "A workbench for crafting attachments."},
-    
-    cash = { name = 'cash', label = 'Uang', weight = 0, type = 'item', image = 'cash.png', unique = false, useable = false, shouldClose = true, combinable = nil, description = '    '  },
-    black_money = { name = 'black_money', label = 'Uang Merah', weight = 0, type = 'item', image = 'black_money.png', unique = false, useable = false, shouldClose = true, combinable = nil, description = '    ' },
-    crypto = { name = 'crypto', label = 'Crypto', weight = 0, type = 'item', image = 'crypto.png', unique = false, useable = false, shouldClose = true, combinable = nil, description = 'Crypto' },
+    item_bench                   = { name = "item_bench", label = "Workbench", weight = 15000, type = "item", image = "workbench.png", unique = true, useable = true, shouldClose = false, combinable = nil, description = "A workbench to craft items." },
+    attachment_bench             = { name = "attachment_bench", label = "Attachment Workbench", weight = 15000, type = "item", image = "attworkbench.png", unique = true, useable = true, shouldClose = false, combinable = nil, description = "A workbench for crafting attachments." },
+
+    cash                         = { name = 'cash', label = 'Uang', weight = 0, type = 'item', image = 'cash.png', unique = false, useable = false, shouldClose = true, combinable = nil, description = '    ' },
+    black_money                  = { name = 'black_money', label = 'Uang Merah', weight = 0, type = 'item', image = 'black_money.png', unique = false, useable = false, shouldClose = true, combinable = nil, description = '    ' },
+    crypto                       = { name = 'crypto', label = 'Crypto', weight = 0, type = 'item', image = 'crypto.png', unique = false, useable = false, shouldClose = true, combinable = nil, description = 'Crypto' },
 
 
 }
